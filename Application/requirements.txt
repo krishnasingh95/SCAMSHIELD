@@ -1,9 +1,9 @@
 # ScamShield — Core Application Dependencies
-# Python 3.10 / 3.11 Recommended
+# Compatible with Streamlit Cloud (Linux) & Local (Windows/macOS)
 
 streamlit>=1.35.0
 scikit-learn>=1.4.0
-opencv-python>=4.9.0
+opencv-python-headless>=4.9.0
 pandas>=2.2.0
 numpy>=1.26.0
 scipy>=1.12.0

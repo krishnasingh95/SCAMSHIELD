@@ -6,7 +6,12 @@ Supports URLs both with and without explicit scheme.
 import re
 import ipaddress
 from urllib.parse import urlsplit
-import cv2
+try:
+    import cv2
+    CV2_AVAILABLE = True
+except ImportError:
+    CV2_AVAILABLE = False
+    cv2 = None
 import numpy as np
 from utils.validators import is_valid_url
 from utils.logger import get_logger
@@ -73,6 +78,8 @@ class QRAnalyzer:
         Returns {"status": "ok", "data": str, "data_type": str, "barcode_type": str}
         or      {"status": "error"|"no_qr_found", "message": str}
         """
+        if not CV2_AVAILABLE:
+            return {"status": "error", "message": "OpenCV library is not available in current environment."}
         try:
             # Convert bytes → numpy array → OpenCV image
             nparr  = np.frombuffer(image_bytes, np.uint8)

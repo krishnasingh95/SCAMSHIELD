@@ -73,15 +73,39 @@ class AIAnalyzer:
     # ── Private helpers ─────────────────────────────────────────────────────
 
     def _load_api_key(self) -> str | None:
-        """Read FREEMODEL_API_KEY from .env (Application directory)."""
-        # Look for .env relative to this file's location (core/ → Application/)
+        """Read FREEMODEL_API_KEY from environment, st.secrets, or .env file."""
+        # 1. Check OS environment variable
+        env_key = os.environ.get("FREEMODEL_API_KEY") or os.environ.get("AI_API_KEY")
+        if env_key:
+            return env_key.strip()
+
+        # 2. Check Streamlit Cloud Secrets if available
+        try:
+            import streamlit as st
+            if "FREEMODEL_API_KEY" in st.secrets:
+                return str(st.secrets["FREEMODEL_API_KEY"]).strip()
+            if "AI_API_KEY" in st.secrets:
+                return str(st.secrets["AI_API_KEY"]).strip()
+        except Exception:
+            pass
+
+        # 3. Look for .env relative to this file's location (core/ → Application/)
         env_file = Path(__file__).resolve().parent.parent / ".env"
         if not env_file.exists():
-            logger.warning(f".env not found at {env_file}")
-            return None
+            # Check repository root as well
+            root_env = Path(__file__).resolve().parent.parent.parent / ".env"
+            if root_env.exists():
+                env_file = root_env
+            else:
+                logger.warning(f".env not found at {env_file}")
+                return None
+
         for line in env_file.read_text(encoding="utf-8").splitlines():
             stripped = line.strip()
             if stripped.startswith("FREEMODEL_API_KEY="):
+                key = stripped.split("=", 1)[1].strip().strip('"').strip("'")
+                return key or None
+            elif stripped.startswith("AI_API_KEY="):
                 key = stripped.split("=", 1)[1].strip().strip('"').strip("'")
                 return key or None
         return None
