@@ -99,14 +99,15 @@ if analyse_btn:
         """, unsafe_allow_html=True)
 
         # ── Structural risk flags ─────────────────────────────────────────
-        flags = []
-        if feats.get("has_ip_address"):       flags.append("IP Address as domain")
-        if feats.get("has_suspicious_tld"):   flags.append(f"Suspicious TLD ({feats.get('_tld','')})")
-        if not feats.get("has_https"):         flags.append("No HTTPS")
-        if feats.get("has_brand_keyword"):    flags.append("Brand keyword in domain")
-        if feats.get("brand_in_subdomain"):   flags.append("Brand name in subdomain")
-        if feats.get("has_redirect"):         flags.append("Redirect parameter detected")
-        if feats.get("url_length", 0) > 100: flags.append("Unusually long URL")
+        flags = result.get("flags") or []
+        if not flags:
+            if feats.get("has_ip_address"):       flags.append("IP Address as domain")
+            if feats.get("has_suspicious_tld"):   flags.append(f"Suspicious TLD ({feats.get('_tld','')})")
+            if not feats.get("has_https"):         flags.append("No HTTPS")
+            if feats.get("has_brand_keyword"):    flags.append("Brand keyword in domain")
+            if feats.get("brand_in_subdomain"):   flags.append("Brand name in subdomain")
+            if feats.get("has_redirect"):         flags.append("Redirect parameter detected")
+            if feats.get("url_length", 0) > 100: flags.append("Unusually long URL")
 
         if flags:
             rh = COLORS["risk_high"]
@@ -162,19 +163,13 @@ if analyse_btn:
 
             # ── AI Analysis ───────────────────────────────────────────────
             section_divider("AI-POWERED EXPLANATION")
-            if ai_analyzer.available:
-                with st.spinner("🤖 Asking AI for a detailed explanation…"):
-                    ai_result = ai_analyzer.explain(
-                        content=url,
-                        scan_type="URL",
-                        rf_label=result["label"],
-                        rf_confidence=result["confidence"],
-                    )
-            else:
-                ai_result = {
-                    "status":  "unavailable",
-                    "message": "Add FREEMODEL_API_KEY to your .env file to enable AI explanations.",
-                }
+            with st.spinner("🤖 Asking AI for a detailed explanation…"):
+                ai_result = ai_analyzer.explain(
+                    content=url,
+                    scan_type="URL",
+                    rf_label=result["label"],
+                    rf_confidence=result["confidence"],
+                )
             ai_analysis_card(ai_result)
 
         else:

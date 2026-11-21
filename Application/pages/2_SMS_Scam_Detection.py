@@ -117,19 +117,13 @@ if analyse_btn:
 
             # ── AI Analysis (Hybrid: RF verdict → AI explanation) ─────────
             section_divider("AI-POWERED EXPLANATION")
-            if ai_analyzer.available:
-                with st.spinner("🤖 Asking AI for a detailed explanation…"):
-                    ai_result = ai_analyzer.explain(
-                        content=text,
-                        scan_type="SMS",
-                        rf_label=result["label"],
-                        rf_confidence=result["confidence"],
-                    )
-            else:
-                ai_result = {
-                    "status":  "unavailable",
-                    "message": "Add FREEMODEL_API_KEY to your .env file to enable AI explanations.",
-                }
+            with st.spinner("🤖 Asking AI for a detailed explanation…"):
+                ai_result = ai_analyzer.explain(
+                    content=text,
+                    scan_type="SMS",
+                    rf_label=result["label"],
+                    rf_confidence=result["confidence"],
+                )
             ai_analysis_card(ai_result)
 
         else:

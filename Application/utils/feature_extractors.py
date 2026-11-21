@@ -98,25 +98,43 @@ def extract_sms_features(text: str) -> dict:
 
 # ─── URL Features ─────────────────────────────────────────────────────────────
 
-# Exact 9 suspicious TLDs from training metadata
+# Exact 9 suspicious TLDs from training metadata + expanded modern threat TLDs & shorteners
 SUSPICIOUS_TLDS = {
-    "tk", "ml", "ga", "cf", "gq",
-    "xyz", "top", "click", "pw"
+    "tk", "ml", "ga", "cf", "gq", "xyz", "top", "click", "pw",
+    "cc", "buzz", "club", "site", "online", "live", "info", "icu",
+    "vip", "fit", "work", "rest", "shop", "tokyo", "bar", "loan",
+    "cfd", "sbs", "ly", "link", "monster", "quest"
 }
 
-# Exact 16 brand keywords from training metadata
+# Known URL shortener services
+SHORT_DOMAINS = {
+    "bit.ly", "tinyurl.com", "is.gd", "rb.gy", "cutt.ly",
+    "t.ly", "shorturl.at", "ow.ly", "tiny.cc", "wa.me"
+}
+
+# Brand keywords (training metadata + common financial & consumer targets)
 BRAND_KEYWORDS = [
-    "paypal", "google", "amazon", "apple",
-    "microsoft", "facebook", "instagram",
-    "whatsapp", "netflix", "sbi",
-    "hdfc", "icici", "axisbank",
-    "paytm", "phonepe", "visa"
+    "paypal", "google", "amazon", "apple", "microsoft", "facebook",
+    "instagram", "whatsapp", "netflix", "sbi", "hdfc", "icici",
+    "axisbank", "paytm", "phonepe", "visa", "mastercard", "chase",
+    "wellsfargo", "citibank", "boc", "axis", "pnb", "kotak",
+    "baroda", "canara", "yono", "telegram", "twitter", "ebay",
+    "yahoo", "binance", "coinbase", "meta", "linkedin", "outlook",
+    "office365", "adobe"
 ]
+
+def normalize_defanged(text: str) -> str:
+    """Normalize defanged URLs and obfuscations commonly found in security blogs and test vectors."""
+    t = str(text).strip()
+    t = re.sub(r"(?i)\bhxxps?://", lambda m: m.group(0).lower().replace("xx", "tt"), t)
+    t = re.sub(r"\[:\]", ":", t)
+    t = re.sub(r"(?<=[a-zA-Z0-9])(?:\[dot\]|\(dot\)|\[\.\]|\(\.\))(?=[a-zA-Z0-9])", ".", t, flags=re.I)
+    return t
 
 
 def extract_url_features(url: str) -> dict:
     """Extract structural features from a URL string matching training."""
-    url = str(url).strip()
+    url = normalize_defanged(url)
     lower_url = url.lower()
 
     # Handle URLs without schemes (matching training cell 15)
@@ -153,9 +171,12 @@ def extract_url_features(url: str) -> dict:
     domain_parts = domain.split(".") if domain else []
     num_subdomains = max(domain.count("."), 0)
 
-    # Brand detection
+    # Brand detection across hostname, path, and query
     has_brand_keyword = int(
-        any(brand in domain for brand in BRAND_KEYWORDS)
+        any(
+            brand in domain or brand in parsed.path.lower() or brand in parsed.query.lower()
+            for brand in BRAND_KEYWORDS
+        )
     )
 
     # Brand in leftmost subdomain
@@ -169,8 +190,13 @@ def extract_url_features(url: str) -> dict:
 
     # Redirect indicators
     has_redirect = int(
-        "redirect" in lower_url
-        or "url=" in lower_url
+        any(
+            k in lower_url
+            for k in [
+                "redirect", "url=", "return=", "next=", "dest=",
+                "destination=", "link=", "go=", "target="
+            ]
+        )
     )
 
     features = {
@@ -194,4 +220,5 @@ def extract_url_features(url: str) -> dict:
     features["_parsed_domain"] = domain
     features["_tld"]           = f".{tld}" if tld else ""
     features["_scheme"]        = parsed.scheme
+    features["_is_shortener"]   = int(any(domain == sd or domain.endswith("." + sd) for sd in SHORT_DOMAINS))
     return features

@@ -132,17 +132,11 @@ if uploaded:
                 if result["status"] == "ok":
                     section_divider("AI-POWERED EXPLANATION")
                     scan_type = "URL" if data_type == "url" else "SMS"
-                    if ai_analyzer.available:
-                        with st.spinner("🤖 Asking AI for a detailed explanation…"):
-                            ai_result = ai_analyzer.explain(
-                                content=decoded_data,
-                                scan_type=scan_type,
-                                rf_label=result.get("label", "UNKNOWN"),
-                                rf_confidence=result.get("confidence", 0.5),
-                            )
-                    else:
-                        ai_result = {
-                            "status":  "unavailable",
-                            "message": "Add FREEMODEL_API_KEY to your .env to enable AI explanations.",
-                        }
+                    with st.spinner("🤖 Asking AI for a detailed explanation…"):
+                        ai_result = ai_analyzer.explain(
+                            content=decoded_data,
+                            scan_type=scan_type,
+                            rf_label=result.get("label", "UNKNOWN"),
+                            rf_confidence=result.get("confidence", 0.5),
+                        )
                     ai_analysis_card(ai_result)
