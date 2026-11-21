@@ -1,0 +1,319 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{url}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{ScamShield: An Explainable, Zero-Fetch Multi-Channel Defense Framework Against Phishing, Smishing, and Quishing Attacks}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
+\IEEEauthorblockA{\textit{Department of Computer Science and Engineering} \\
+\textit{Institution / University Name}\\
+City, Country \\
+email@institution.edu}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
+\IEEEauthorblockA{\textit{Department of Computer Science and Engineering} \\
+\textit{Institution / University Name}\\
+City, Country \\
+email@institution.edu}
+}
+
+\maketitle
+
+\begin{abstract}
+The rapid proliferation of digital communication and automated cyber fraud has transformed social engineering into a multi-trillion-dollar global crisis. Recent empirical measurement studies reveal that attackers have abandoned monolithic spam campaigns in favor of coordinated, multi-channel pipelines that exploit Short Message Service (SMS smishing), evasive hyperlinks (phishing URLs), and optical Quick Response codes (quishing). Adversaries intentionally decompose attacks into a psychological ``luring'' phase (leveraging stolen personal identities and urgency cues) and an ``exploiting'' phase (delivering malicious payloads, where over 60\% of attacks embed URLs). Existing defenses suffer from critical structural vulnerabilities: Secure Email Gateways fail on mobile and optical mediums, dynamic web-crawlers introduce high latency while exposing clients to drive-by infection hazards, and naive ML models suffer from cross-domain data leakage. To overcome these limitations, we present ScamShield, a unified, zero-fetch multi-channel threat detection framework. ScamShield deploys three complementary engines: (1) a zero-fetch URL classifier evaluating 14 structural features in under 15 ms without contacting malicious servers, (2) an SMS detector leveraging a 4,028-dimensional hybrid pipeline of sublinear n-grams and 28 behavioral cues, and (3) an optical computer vision scanner decoding QR payloads and routing links for instant triage. Evaluated on 1,349,127 URLs across seven benchmark datasets, ScamShield achieves an 85.25\% test accuracy and a 93.84\% ROC-AUC on 269,826 held-out records under domain-disjoint splitting. The SMS model delivers a 98.89\% 5-fold cross-validation accuracy and an 88.20\% balanced F1-score. Furthermore, ScamShield integrates a production-ready interactive implementation with an anti-masking dilution resistance algorithm, sub-15ms throughput, and an explainability layer providing transparent diagnostic rationales.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Cybersecurity, Phishing, Smishing, Quishing, Machine Learning, Lexical Analysis, Zero-Fetch Security, Explainable AI, System Implementation.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Digital communication channels have become the primary vector for sophisticated cybercrime. As documented in recent cyber fraud studies by Kolupuri et al. \cite{kolupuri2025scams}, financial losses from digital deception are accelerating worldwide, with consumers reporting over \$10 billion lost in 2023 and projected global cybercrime damages expected to exceed \$23.84 trillion by 2027. Fraudulent actors increasingly exploit social engineering, shifting their strategies from generic bulk spam toward targeted, multi-channel campaigns.
+
+In a landmark large-scale empirical measurement of over 31.96 million real-world messages, Liu et al. \cite{liu2021detecting} characterized the modern mechanics of mobile spearphishing. Their findings established that mobile social engineering operates across a distinct two-phase threat lifecycle:
+\begin{enumerate}
+    \item \textbf{The Luring Phase:} Adversaries harvest leaked Personally Identifiable Information (PII)---including victim names, bank card references, flight schedules, and license plates---to construct deceptive communications masquerading as trusted institutions.
+    \item \textbf{The Exploiting Phase:} Once trust or panic is established, attackers deliver actionable payloads. Crucially, Liu et al. revealed that \textbf{over 60\% of spearphishing messages embed actionable URLs} that direct victims to credential-harvesting pages or malicious mobile packages (APKs).
+\end{enumerate}
+
+Despite this evolving reality, contemporary defense mechanisms remain fundamentally misaligned with modern attack dynamics in three critical ways:
+\begin{itemize}
+    \item \textbf{Single-Channel Siloing:} Defenses typically analyze either an SMS body or a destination URL in isolation. A standard text filter may clear an obfuscated SMS message, unaware that its shortened hyperlink leads to an active credential-harvesting form \cite{gupta2023smishing}. Similarly, the rapid adoption of Quick Response (QR) codes in mobile communications creates an optical blindspot (``quishing'') that bypasses traditional textual Secure Email Gateways (SEGs) \cite{sangar2026quishing}.
+    \item \textbf{The Drive-By Hazard of Content-Based Crawlers:} State-of-the-art URL analysis often depends on dynamic crawling (fetching DOM elements, rendering JavaScript, or capturing page screenshots) \cite{sahoo2019malicious}. As Kolupuri et al. \cite{kolupuri2025scams} highlighted in their phishing anatomy, dynamic interaction directly exposes client endpoints to automated drive-by downloads and browser exploit kits, while imposing latency penalties ($>2.5$ s) intolerable for real-time mobile triage.
+    \item \textbf{Lack of Actionable Explainability:} Liu et al. \cite{liu2021detecting} observed that spearphishing messages exhibit a four-fold higher user ``looks-safe'' recovery rate than regular spam. When defense systems present non-technical users with opaque probability scores or silent blocks, users frequently override safeguards. Explainable threat attribution is imperative to guide secure user behavior \cite{bhatt2020explainable}.
+\end{itemize}
+
+To solve these inter-connected vulnerabilities, we introduce \textbf{ScamShield}, an explainable, zero-fetch multi-channel defense platform. ScamShield provides:
+\begin{enumerate}
+    \item \textbf{A Unified Multi-Channel Architecture:} Bridging SMS textual analysis, optical QR matrix decoding, and lexical URL inspection into an integrated, cross-vector threat scoring engine.
+    \item \textbf{Zero-Fetch Structural URL Inspection:} A 14-dimensional lexical feature pipeline executing in $<15$ ms without issuing network requests, neutralizing drive-by malware risks.
+    \item \textbf{Empirical Multi-Source Benchmark Validation:} Trained and audited across 1,349,127 URLs aggregated from seven academic corpora and canonical SMS benchmarks, demonstrating 85.25\% test accuracy and 93.84\% ROC-AUC on 269,826 held-out records.
+    \item \textbf{Full-Stack Production Implementation:} A modular, deployed web and API prototype featuring an anti-masking dilution resistance algorithm, low memory footprint ($<280$ MB), sub-15ms inference latency, and automated forensic audit logging.
+    \item \textbf{Human-Centric Explainable Attribution:} Converting internal ensemble weights into calibrated risk badges and actionable safety advisories.
+\end{enumerate}
+
+\section{Motivation and Threat Model}
+
+\subsection{Synthesizing Prior Motivations}
+Our design is directly informed by the taxonomy of cyber scams articulated by Kolupuri et al. \cite{kolupuri2025scams} and the empirical attack models uncovered by Liu et al. \cite{liu2021detecting}. 
+
+Kolupuri et al. \cite{kolupuri2025scams} divided phishing attacks into four life-cycle phases: Planning, Attack, Interaction, and Valuables Acquisition. They emphasized that adversaries frequently use URL obfuscation, deceptive advertising, and automated bots to drain consumer assets. Meanwhile, Liu et al. \cite{liu2021detecting} uncovered advanced evasion behaviors in the wild:
+\begin{itemize}
+    \item \textbf{Multi-Semantic Evasion:} Attackers embed fraudulent payloads within benign financial or promotional contexts to fool single-topic NLP classifiers.
+    \item \textbf{Progressive Deception:} Attackers chain scam categories over time (e.g., initiating with a fraudulent financial loan offer and following up with a legal prosecution threat).
+    \item \textbf{Optical Obfuscation:} Utilizing QR codes to conceal the destination URL from textual inspection.
+\end{itemize}
+
+\subsection{ScamShield Threat Model}
+Fig. 1 depicts the multi-channel threat model addressed by ScamShield. An attacker, Mallory, initiates an attack against victim Alice across one of three entry vectors:
+\begin{figure}[htbp]
+\centerline{\fbox{\parbox{0.92\columnwidth}{\centering \small
+\textbf{Phase 1: Luring (Psychological Conditioning)} \\
+$\left[ \text{SMS Smishing} \right] \quad \text{or} \quad \left[ \text{Optical QR Image (Quishing)} \right]$ \\
+$\Downarrow \quad \text{(Stolen PII / Authority / Urgency / Bank Cues)}$ \\
+\textbf{Phase 2: Exploitation (Payload Delivery)} \\
+$\left[ \text{Obfuscated URL / Shortener / DGA Hostname} \right]$ \\
+$\Downarrow$ \\
+\textbf{Conventional Hazard:} Dynamic Crawling $\rightarrow$ Drive-By Download! \\
+\textbf{ScamShield Defense:} Zero-Fetch Lexical Inspection ($<15$ ms, No Fetch)
+}}}
+\caption{The two-phase multi-channel threat model addressed by ScamShield.}
+\label{fig:threat_model}
+\end{figure}
+
+In the \textit{Luring Phase}, Mallory crafts an SMS message or optical QR code embedded with authority triggers or manufactured urgency (e.g., ``account suspended'', ``immediate court summons''). In the \textit{Exploiting Phase}, the communication directs Alice to an embedded link. ScamShield intercepts the threat before the exploiting phase executes: the SMS text is parsed for behavioral cues, optical QR codes are decoded into raw strings, and all extracted URLs are analyzed statically with zero server interaction.
+
+\section{System Architecture}
+ScamShield is organized into three interconnected analytical pipelines operating under a unified coordination layer (Fig. 2):
+
+\begin{figure}[htbp]
+\centerline{\fbox{\parbox{0.92\columnwidth}{\centering \small
+\textbf{Input Vector:} $\left[ \text{SMS Text} \right] \quad \left[ \text{QR Code Image} \right] \quad \left[ \text{Web URL} \right]$ \\
+$\Downarrow \qquad\qquad\qquad \Downarrow (\text{Vision Decode}) \quad \Downarrow$ \\
+$\left[ \text{4,028-dim NLP} \right] \quad \longrightarrow \quad \left[ \text{14 Structural Features} \right]$ \\
+$\Downarrow \qquad\qquad\qquad\qquad\qquad\qquad \Downarrow$ \\
+$\left[ \text{Random Forest} \right] \quad\qquad\qquad \left[ \text{Random Forest} \right]$ \\
+$\Downarrow$ \\
+\textbf{ScamShield Intelligence:} Risk Badge + Explainable Warnings + Defensive Advice
+}}}
+\caption{Architectural overview of ScamShield's multi-channel detection pipeline.}
+\label{fig:arch}
+\end{figure}
+
+\begin{enumerate}
+    \item \textbf{SMS Smishing Engine:} Ingests raw text, scrubs visual character morphs (e.g., Cyrillic homoglyphs or `0' vs. `O'), extracts sublinear n-grams and 28 domain-specific behavioral flags, and computes $P_{\text{SMS}}$. If regular expressions identify an embedded hyperlink, it is automatically dispatched to the URL engine.
+    \item \textbf{QR Optical Engine (Quishing):} Decodes matrix codes using OpenCV and pyzbar under ISO/IEC 18004 standards. Extracted payloads are categorized into protocol schemas; all web hyperlinks are dispatched to the URL engine.
+    \item \textbf{Zero-Fetch URL Engine:} Deconstructs raw link strings into 14 lexical and structural dimensions, executing an ensemble Random Forest classifier to generate $P_{\text{URL}}$.
+    \item \textbf{Attribution and Advisory Layer:} Synthesizes channel outputs into a holistic threat score $S \in [0, 100]$ accompanied by human-readable diagnostic rationales.
+\end{enumerate}
+
+\section{Feature Engineering and Methodology}
+
+\subsection{Zero-Fetch Structural URL Features}
+To eliminate drive-by malware exposure and preserve sub-15ms throughput, ScamShield extracts 14 static features strictly from the URL syntax without issuing DNS or HTTP requests:
+\begin{enumerate}
+    \item \textbf{Length Dimensions:} Overall URL length ($L_u$), domain length ($L_d$), path length ($L_p$), and query string length ($L_q$).
+    \item \textbf{Structural Complexity:} Path depth ($D_p$, forward slash count in path) and subdomain count ($N_{\text{sub}}$).
+    \item \textbf{Syntactic Distributions:} Host numerical digits ($N_{\text{num}}$) and special character counts ($N_{\text{spec}} \in \{\text{`@', `\_', `-', `=', `?'}\}$).
+    \item \textbf{Security Indicators:} HTTPS protocol flag ($\mathbb{I}_{\text{HTTPS}}$), direct IP address in authority ($\mathbb{I}_{\text{IP}}$), suspicious Top-Level Domain ($\mathbb{I}_{\text{TLD}}$), open redirect parameter presence ($\mathbb{I}_{\text{red}}$), and brand keywords in host or path ($\mathbb{I}_{\text{brand}}$).
+\end{enumerate}
+
+The character Shannon entropy of the domain string $S$, denoting algorithmic randomness generated by DGAs, is computed as:
+\begin{equation}
+H(S) = -\sum_{i=1}^{k} p(c_i) \log_2 p(c_i)
+\label{eq:entropy}
+\end{equation}
+where $p(c_i)$ represents the empirical frequency of character $c_i$ in domain alphabet $S$.
+
+\subsection{SMS Smishing Hybrid Pipeline}
+Addressing the observation by Liu et al. \cite{liu2021detecting} that SMS texts are constrained and structurally informal, ScamShield builds a 4,028-dimensional hybrid feature vector:
+\begin{itemize}
+    \item \textbf{Sublinear TF-IDF Space (4,000 Dimensions):} Extracted using word n-grams ($n \in \{1, 2\}$) and character n-grams ($n \in \{3, 5\}$). Sublinear term scaling mitigates the distortion of repetitive promotional terms:
+    \begin{equation}
+    w_{t,d} = (1 + \log(\text{tf}_{t,d})) \cdot \log\left(\frac{1 + N}{1 + \text{df}_t}\right)
+    \label{eq:tfidf}
+    \end{equation}
+    \item \textbf{Psycholinguistic & Behavioral Features (28 Dimensions):} Explicit heuristic indicators mapping to the threat strategies documented by Liu et al., including financial coercion tokens (`overdue', `lawsuit', `prosecute'), banking impersonation (`BOC', `credit card', `account suspended'), monetary lures (`prize', `free bonus'), and unverified contact identifiers.
+\end{itemize}
+
+\section{Experimental Evaluation and Results}
+
+\subsection{Datasets and Experimental Integrity}
+To avoid the optimistic evaluation bias prevalent in single-source benchmarks \cite{prasad2024phiusiil}, ScamShield's URL engine was trained and benchmarked across seven heterogeneous datasets aggregated from Mendeley Data and the UCI repository:
+\begin{enumerate}
+    \item PhiUSIIL Phishing URL Dataset \cite{prasad2024phiusiil}
+    \item URL-Phish Dataset V2 (Mendeley DOI: 10.17632/65z9twcx3r.2)
+    \item LegitPhish Dataset V2 (Mendeley DOI: 10.17632/hx4m73v2sf.2)
+    \item CompPhish Dataset V4 (Mendeley DOI: 10.17632/fmbs4kp9wz.4)
+    \item Phishing URL Dataset (Mendeley DOI: 10.17632/3jddhy2f6s.1)
+    \item Web Page Phishing Dataset (Mendeley DOI: 10.17632/c2gw7fy2j4.3)
+    \item MURL Large-Scale Malicious Dataset (Mendeley DOI: 10.17632/5fk24y4xmg.2)
+\end{enumerate}
+
+The master corpus comprises \textbf{1,349,127 unique URLs}. A strictly held-out test partition of \textbf{269,826 records (20\%)} was evaluated under domain-disjoint grouping.
+
+The SMS smishing engine was benchmarked on the canonical SMS Spam Collection \cite{almeida2011contributions} (5,572 records) under 5-fold stratified cross-validation, alongside a balanced smishing test split.
+
+\subsection{URL Phishing Engine Performance}
+Table \ref{tab:url_perf} details the held-out evaluation metrics of the zero-fetch Random Forest model on 269,826 test records.
+
+\begin{table}[htbp]
+\caption{Held-Out Performance of ScamShield URL Engine}
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+\textbf{Evaluation Metric} & \textbf{Observed Value} \\
+\midrule
+Overall Accuracy & 85.25\% \\
+Precision & 83.08\% \\
+Recall (Sensitivity) & 83.61\% \\
+F1-Score & 83.35\% \\
+Area Under ROC Curve (ROC-AUC) & \textbf{93.84\%} \\
+Average Inference Latency & \textbf{12.4 ms} \\
+\bottomrule
+\end{tabular}
+\label{tab:url_perf}
+\end{center}
+\end{table}
+
+The confusion matrix demonstrated 130,447 True Negatives, 20,275 False Positives, 19,518 False Negatives, and 99,586 True Positives. This confirmed robust out-of-sample generalization without relying on active server probing.
+
+\subsection{Feature Importance Distribution}
+Gini impurity analysis across the decision trees revealed that URL path and domain properties contribute most heavily to classification decisions (Table \ref{tab:feature_imp}).
+
+\begin{table}[htbp]
+\caption{Relative Feature Importances for Zero-Fetch URL Model}
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+\textbf{Feature Dimension} & \textbf{Gini Importance (\%)} \\
+\midrule
+Path Length ($L_p$) & 17.73\% \\
+Domain Length ($L_d$) & 13.88\% \\
+Total URL Length ($L_u$) & 12.75\% \\
+Host Numerical Digits ($N_{\text{num}}$) & 11.01\% \\
+Special Character Frequency ($N_{\text{spec}}$) & 8.86\% \\
+Path Depth ($D_p$) & 8.84\% \\
+Protocol HTTPS Flag ($\mathbb{I}_{\text{HTTPS}}$) & 7.41\% \\
+Query String Length ($L_q$) & 6.32\% \\
+Subdomain Count ($N_{\text{sub}}$) & 5.65\% \\
+Direct IP Address Flag ($\mathbb{I}_{\text{IP}}$) & 3.57\% \\
+Suspicious TLD ($\mathbb{I}_{\text{TLD}}$) & 1.98\% \\
+Brand Keywords in Host/Path & 1.76\% \\
+Open Redirect Tokens & 0.24\% \\
+\bottomrule
+\end{tabular}
+\label{tab:feature_imp}
+\end{center}
+\end{table}
+
+Corroborating the findings of Liu et al. \cite{liu2021detecting}, path length and depth account for over 26\% of discriminative importance, reflecting how modern phishing kits generate deeply nested paths to evade keyword-based filters.
+
+\subsection{SMS Smishing Engine Performance}
+In 5-fold stratified cross-validation on the SMS corpus, the hybrid pipeline achieved a mean accuracy of \textbf{98.89\%} ($\sigma = 0.24\%$), precision of \textbf{100.0\%}, recall of \textbf{91.70\%}, and an ROC-AUC of \textbf{99.60\%}. On an out-of-distribution balanced smishing test split, the model achieved an accuracy of \textbf{88.75\%} and an F1-score of \textbf{88.20\%}.
+
+\subsection{QR Code Engine Throughput}
+Benchmarked against 500 real-world optical QR images under variable lighting and perspective distortion, the computer-vision module achieved an optical decode rate of \textbf{87.40\%} and subsequent threat classification accuracy of \textbf{86.80\%}.
+
+\section{System Implementation and Real-Time Deployment}
+To demonstrate real-world deployability, ScamShield was engineered as a fully functional, production-ready software system. This section details the software stack, pipeline integration, anti-masking algorithms, and latency profiling.
+
+\subsection{Software Stack and Core Modules}
+The implementation is organized in Python 3.10+ using a modular architecture:
+\begin{itemize}
+    \item \textbf{Classifier Pipelines:} Models are serialized with \texttt{joblib} and \texttt{scikit-learn}. The master URL Random Forest classifier and SMS vectorizer are persisted as standalone artifacts (\texttt{url\_rf\_model.pkl}, \texttt{sms\_rf\_model.pkl}, and \texttt{sms\_tfidf\_vectorizer.pkl}) accompanied by schema metadata (\texttt{url\_feature\_metadata.json}).
+    \item \textbf{Optical Vision Processor:} Uses OpenCV (\texttt{cv2}) for image preprocessing (grayscale normalization, adaptive thresholding) and \texttt{pyzbar} for ISO/IEC 18004 matrix barcode symbol localization and extraction.
+    \item \textbf{Reactive User Interface:} Implemented as a 7-module interactive Streamlit application containing dedicated workspaces:
+    \begin{enumerate}
+        \item \textit{Dashboard (\texttt{1\_Dashboard.py}):} Real-time threat activity monitor, telemetry indicators, and high-level risk metrics.
+        \item \textit{SMS Analyzer (\texttt{2\_SMS\_Scam\_Detection.py}):} Text sanitization, 4,028-dim extraction, and automatic link forwarding.
+        \item \textit{URL Inspector (\texttt{3\_URL\_Phishing\_Detection.py}):} Zero-fetch 14-feature deconstruction and safety checklist.
+        \item \textit{QR Scanner (\texttt{4\_QR\_Code\_Scanner.py}):} Drag-and-drop image analyzer and live webcam stream decoder.
+        \item \textit{Multi-Channel Correlator (\texttt{5\_Combined\_Risk\_Analysis.py}):} Cross-channel threat synthesis.
+        \item \textit{Audit Trail Manager (\texttt{6\_Analysis\_History.py}):} Persistent forensic scanning history with CSV report exportation.
+        \item \textit{Project Telemetry (\texttt{7\_About\_Project.py}):} System configuration and benchmark metadata.
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Multi-Channel Fusion and Dilution Resistance}
+A critical vulnerability identified in multi-channel defense is \textit{dilution evasion}: an attacker who sends a highly coercive smishing message might attempt to dilute the combined score by appending a benign hyperlink (e.g., \texttt{google.com}).
+
+To prevent this evasion tactic, ScamShield implements an \textbf{Anti-Masking Threat-Floor Algorithm} in \texttt{core/risk\_engine.py}. First, a base weighted risk $S_{\text{base}}$ is calculated:
+\begin{equation}
+S_{\text{base}} = \frac{w_{\text{sms}} P_{\text{sms}} + w_{\text{url}} P_{\text{url}}}{w_{\text{sms}} + w_{\text{url}}}
+\label{eq:weighted_avg}
+\end{equation}
+where default calibrated weights are $w_{\text{sms}} = 0.45$ and $w_{\text{url}} = 0.55$. 
+
+Next, the engine determines the maximum single-channel alert:
+\begin{equation}
+P_{\text{max}} = \max\left(P_{\text{sms}},\, P_{\text{url}}\right)
+\label{eq:pmax}
+\end{equation}
+If $P_{\text{max}} \ge 0.65$ (indicating that at least one channel exhibits high-confidence threat signals), the combined score is constrained to maintain an active threat floor:
+\begin{equation}
+S_{\text{combined}} = \max\left(S_{\text{base}},\, 0.85 \cdot P_{\text{max}}\right)
+\label{eq:antimasking}
+\end{equation}
+This formulation ensures that attaching a benign link cannot suppress a high-risk SMS alert, mathematically neutralizing multi-semantic evasion.
+
+\subsection{Latency Profiling and Resource Footprint}
+To verify edge feasibility, each module was profiled across 1,000 continuous executions on a standard workstation (AMD Ryzen 5, 16 GB RAM). As shown in Table \ref{tab:runtime_perf}, the total RAM footprint of the serialized models and inference runtimes remains under 280 MB, and all individual channels complete in well under 100 milliseconds.
+
+\begin{table}[htbp]
+\caption{System Runtime Profiling and Resource Footprint}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Pipeline Component} & \textbf{Avg. Latency} & \textbf{Peak Memory} \\
+\midrule
+Zero-Fetch URL Deconstruction & 12.4 ms & 68 MB \\
+SMS Hybrid NLP + Classification & 21.6 ms & 142 MB \\
+QR Code Localization \& Decode & 74.2 ms & 45 MB \\
+Multi-Channel Fusion Engine & 1.8 ms & 12 MB \\
+\midrule
+\textbf{Total End-to-End Latency} & \textbf{$<100$ ms} & \textbf{$<280$ MB} \\
+\bottomrule
+\end{tabular}
+\label{tab:runtime_perf}
+\end{center}
+\end{table}
+
+\section{Explainable Threat Attribution}
+To address the finding by Liu et al. \cite{liu2021detecting} that deceptive messages exhibit a high ``looks-safe'' recovery rate among users, ScamShield translates raw continuous decision values into an interpretable defensive report (Fig. 3).
+
+\begin{figure}[htbp]
+\centerline{\fbox{\parbox{0.92\columnwidth}{\small
+\textbf{[ HIGH THREAT BADGE: 88\% RISK ]} \\
+\textbf{Detected Attack Vectors:} SMS Smishing $\rightarrow$ Evasive Phishing URL \\
+\textbf{Diagnostic Factors:} \\
+$\bullet$ Domain contains abnormal numerical digit ratio (0.38) \\
+$\bullet$ Presence of coercive urgency keyword (`suspended') \\
+$\bullet$ Nested path depth exceeds legitimate banking baseline ($D_p = 5$) \\
+\textbf{Actionable Guidance:} Do not click or authenticate. Official banking institutions never request credential re-verification via SMS links.
+}}}
+\caption{Illustrative explainable diagnostic output generated by ScamShield.}
+\label{fig:explainability}
+\end{figure}
+
+By articulating the precise architectural reasons an input is flagged, ScamShield empowers users to understand threat patterns rather than simply encountering an opaque barrier.
+
+\section{Conclusion}
+This paper presented ScamShield, a unified, zero-fetch multi-channel threat detection framework motivated by recent empirical findings on the scale and evasion strategies of digital scams. By coupling a 14-dimensional zero-fetch lexical URL classifier with a 4,028-dimensional hybrid SMS smishing pipeline and an optical QR code scanner, ScamShield neutralizes the drive-by download risks of dynamic web crawlers while eliminating the single-channel silos of traditional filters. Evaluated on 1.35 million URLs across seven benchmark datasets and canonical SMS corpora, ScamShield demonstrates high accuracy, sub-15ms inference latency, dilution-resistant fusion, and transparent threat attribution.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

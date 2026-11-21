@@ -39,21 +39,47 @@ SCAM_KEYWORDS_V2 = [
     "urgent", "winner", "won", "free", "claim", "prize", "cash",
     "guaranteed", "offer", "credit", "loan", "verify", "login",
     "click", "award", "congratulations", "selected", "limited",
-    "immediately", "suspended", "blocked", "password", "otp",
+    "immediately", "suspended", "suspension", "blocked", "password", "otp",
     "bank", "kyc", "payment", "account", "confirm", "update",
-    "expire", "reward", "bonus", "jackpot", "risk", "tax",
+    "expire", "expiring", "reward", "bonus", "jackpot", "risk", "tax",
     "refund", "government", "police", "arrest", "fine", "penalty",
+    "pan", "aadhaar", "sbi", "hdfc", "icici", "axis", "pnb", "yono",
+    "netbanking", "electricity", "power", "disconnected", "disconnection",
+    "bill", "challan", "traffic", "customs", "courier", "fedex", "parcel",
+    "apk", "telegram", "earning", "wfh", "part-time", "lottery", "kbc",
+    "cashback", "credited", "closure", "locked", "unblock", "reactivate",
+    "due", "summons", "unauthorized", "action required", "warning",
+]
+
+def normalize_defanged(text: str) -> str:
+    """Normalize defanged URLs and obfuscations commonly found in security blogs and test vectors."""
+    t = str(text)
+    t = re.sub(r"(?i)\bhxxps?://", lambda m: m.group(0).lower().replace("xx", "tt"), t)
+    t = re.sub(r"\[:\]", ":", t)
+    t = re.sub(r"(?<=[a-zA-Z0-9])(?:\[dot\]|\(dot\)|\[\.\]|\(\.\))(?=[a-zA-Z0-9])", ".", t, flags=re.I)
+    return t
+
+SHORT_DOMAINS = [
+    "bit.ly", "tinyurl", "goo.gl", "t.co", "ow.ly", "tiny.cc",
+    "is.gd", "cutt.ly", "rb.gy", "shorturl.at", "t.ly", "wa.me", "bit[dot]ly"
 ]
 
 URL_PAT   = re.compile(
-    r"(?i)(?<![@@\w])(?:https?://|www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)+"
-    r"(?:/[^\s<>\"']*)?"
+    r"(?:https?://|www\.)[a-z0-9-]+(?:\.[a-z0-9-]+)+(?:/[^\s<>\"']*)?|"
+    r"\b[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:com|org|net|in|co|io|xyz|top|site|online|live|club|cc|me|info|gov|edu|ai|app|biz|tv|tech|store|shop|mobi|vip|pro|ly)(?:/[^\s<>\"']*)?\b",
+    re.I
 )
 PHONE_PAT = re.compile(r"\b(?:\+?91[\-\s]?)?[6-9]\d{9}\b")
 EMAIL_PAT = re.compile(r"\b[\w.+-]+@[\w-]+\.[a-z]{2,}\b", re.I)
 MONEY_PAT = re.compile(r"(?:rs\.?|inr|usd|\$|£|€)\s*[\d,]+|[\d,]+\s*(?:rs\.?|inr|usd)", re.I)
-CTA_PAT   = re.compile(r"\b(?:call|reply|text|click|visit|go to|open|download|install|dial)\b", re.I)
-THREAT_PAT= re.compile(r"\b(?:arrest|court|legal|notice|expire|suspend|block|fine|penalty|warning|banned)\b", re.I)
+CTA_PAT   = re.compile(
+    r"\b(?:call|reply|text|click|visit|go to|open|download|install|dial|verify|verification|update|complete|confirm|pay|submit|claim|login|log in|check|reactivate|unblock|redeem)\b",
+    re.I
+)
+THREAT_PAT= re.compile(
+    r"\b(?:arrest(?:ed|ing)?|court|legal|notice[s]?|expir(?:e|ed|ing|y)|suspend(?:ed|ing)?|suspension|block(?:ed|ing|s)?|fine[s]?|penalt(?:y|ies)|warn(?:ing|ed|s)?|bann(?:ed|ing)|terminat(?:ed|ing|ion)?|deactivat(?:ed|ing|ion)?|clos(?:ed|ing|ure)?|freez(?:e|ing|en)|frozen|lock(?:ed|ing)?|seiz(?:ed|ing|ure)?|unauthorized|cancelled|cancellation|disconnect(?:ed|ing|ion)?)\b",
+    re.I
+)
 DATE_PAT  = re.compile(r"\b\d{1,2}[/\-]\d{1,2}(?:[/\-]\d{2,4})?\b")
 
 
@@ -86,7 +112,8 @@ def _extract_v1_features(text: str) -> dict:
 
 def _extract_v2_features(text: str) -> dict:
     """28-feature set for v2 model."""
-    t = str(text)
+    t_clean = normalize_defanged(text)
+    t = t_clean
     lo = t.lower()
     n = max(len(t), 1)
     words = t.split()
@@ -121,8 +148,7 @@ def _extract_v2_features(text: str) -> dict:
         "url_count":            len(urls),
         "has_url":              int(len(urls) > 0),
         "url_in_body_ratio":    len(urls) / max(len(words), 1),
-        "has_short_url":        int(any(x in lo for x in
-                                        ["bit.ly", "tinyurl", "goo.gl", "t.co", "ow.ly", "tiny.cc"])),
+        "has_short_url":        int(any(x in lo for x in SHORT_DOMAINS)),
         "phone_count":          len(phones),
         "email_count":          len(emails),
         "has_cta":              int(len(cta) > 0),
@@ -215,8 +241,9 @@ class SMSAnalyzer:
             }
 
         try:
-            # 1. Transform text with TF-IDF vectorizer
-            tfidf_feat = self.vectorizer.transform([text])
+            # 1. Transform text with TF-IDF vectorizer (using normalized tokens)
+            cleaned_text = normalize_defanged(text)
+            tfidf_feat = self.vectorizer.transform([cleaned_text])
 
             # 2. Extract numerical features in exact training column order
             num_vals   = {k: raw.get(k, 0) for k in self._feat_cols}

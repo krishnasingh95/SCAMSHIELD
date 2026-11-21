@@ -1,14 +1,14 @@
 {
-    "model": "ScamShield SMS Scam Detector v2.1.0",
-    "total_samples": 5572,
+    "model": "ScamShield SMS Scam Detector v2.2.0",
+    "total_samples": 7138,
     "evaluation_methodology": "5-Fold Stratified Cross-Validation",
     "metrics": {
-        "cv_accuracy_mean": 0.9888729661624172,
-        "cv_accuracy_std": 0.0023816002818170547,
-        "cv_f1_score": 0.9566139101601724,
-        "cv_recall": 0.9170022371364654,
+        "cv_accuracy_mean": 0.9906138909663376,
+        "cv_accuracy_std": 0.0020091034491945665,
+        "cv_f1_score": 0.9779075986802999,
+        "cv_recall": 0.9568136085468313,
         "cv_precision": 1.0,
-        "cv_roc_auc": 0.9960099500411494
+        "cv_roc_auc": 0.9980032587694095
     },
-    "note": "Production model calibrated with class balancing and stratified validation to prevent overfitting."
+    "note": "Production model calibrated with class balancing, defanged link normalization, modern Indian & global smishing vectors, and stratified validation."
 }
