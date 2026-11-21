@@ -1,0 +1,14 @@
+# Safe / Benign Messages
+Hey Sarah, are we still meeting for lunch tomorrow at 1 PM near the office?
+Your Amazon package #AMZ-4819 has shipped and will arrive on Friday. View tracking in your Amazon app.
+Hi team, please find the meeting notes attached from today's sprint planning session.
+
+# Low / Moderate Risk (Promotional / Marketing)
+Exclusive weekend flash sale! Get 50% off select apparel at our downtown store. Offer valid till Sunday.
+Reminder: Your dental appointment with Dr. Sharma is scheduled for tomorrow at 4:30 PM. Reply 1 to confirm.
+
+# High Risk / Critical Scams
+URGENT: Your SBI net banking account has been locked due to pending KYC verification. Update immediately at http://sbi-card-kyc-update.top/netbanking to prevent account closure!
+Congratulations! You were selected to win a $1000 Walmart Gift Card! Claim your free prize right now: http://free-iphone15-winner.xyz/claim?id=94821
+FINAL WARNING: An unpaid toll fee of $12.50 is recorded on your vehicle. Pay immediately to avoid a court summons: http://toll-service-pay.xyz/bill
+ALERT: Unauthorized login attempt detected from IP 192.168.1.1. Verify your credentials now: http://paypa1-secure-login.tk/account/verify or your card will be suspended!

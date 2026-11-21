@@ -1,0 +1,13 @@
+{
+  "source_dataset": "C:\\Users\\x1605\\AI_Projects\\ScamShield\\Training\\datasets\\processed\\url_features_14.csv",
+  "source_rows": 235370,
+  "hostnames_with_both_labels": 54,
+  "rows_for_those_hostnames": 112,
+  "safe_rows_for_those_hostnames": 54,
+  "phishing_rows_for_those_hostnames": 58,
+  "note": "A hostname appearing in both classes is not automatically a label error. Inspect URL-level records; do not relabel or delete a whole hostname based only on this report.",
+  "outputs": [
+    "C:\\Users\\x1605\\AI_Projects\\ScamShield\\Training\\Reports\\V2\\hostname_overlap_summary.csv",
+    "C:\\Users\\x1605\\AI_Projects\\ScamShield\\Training\\Reports\\V2\\hostname_overlap_records.csv"
+  ]
+}

@@ -1,0 +1,18 @@
+# Safe / Benign URLs
+https://www.google.com
+https://en.wikipedia.org/wiki/Cybersecurity
+https://www.amazon.com/dp/B09X4K9BSQ
+https://github.com/torvalds/linux
+https://docs.python.org/3/library/urllib.html
+
+# Suspicious / Medium Risk URLs
+http://bit.ly/3xY9zQ?redirect=http://portal-check.info
+http://tracking-service-order.net/status?id=83921
+
+# High Risk / Critical Phishing URLs
+http://paypa1-secure-login.tk/account/verify
+http://free-iphone15-winner.xyz/claim?id=192837
+http://sbi-card-kyc-update.top/netbanking
+http://192.168.1.1/admin/login?redirect=http://evil.com
+http://netflix-subscription-renew.cf/billing
+http://login-help-service.xyz/account

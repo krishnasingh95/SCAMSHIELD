@@ -1,0 +1,140 @@
+{
+  "sms_metrics": {
+    "test_samples": 1034,
+    "accuracy": 99.81,
+    "precision": 99.24,
+    "recall": 99.24,
+    "f1_score": 99.24,
+    "roc_auc": 99.99,
+    "confusion_matrix": [
+      [
+        902,
+        1
+      ],
+      [
+        1,
+        130
+      ]
+    ],
+    "latency_ms_per_sample": 69.205
+  },
+  "url_metrics": {
+    "test_samples": 20000,
+    "accuracy": 96.84,
+    "precision": 99.74,
+    "recall": 92.86,
+    "f1_score": 96.17,
+    "roc_auc": 99.77,
+    "confusion_matrix": [
+      [
+        11437,
+        21
+      ],
+      [
+        610,
+        7932
+      ]
+    ],
+    "throughput_urls_per_sec": 114202
+  },
+  "canonical_tests": [
+    {
+      "url": "https://www.google.com",
+      "expected": "SAFE",
+      "predicted": "SAFE",
+      "confidence": 0.3,
+      "risk_level": "SAFE",
+      "passed": true
+    },
+    {
+      "url": "https://www.google.com/search?q=python",
+      "expected": "SAFE",
+      "predicted": "SAFE",
+      "confidence": 17.5,
+      "risk_level": "LOW",
+      "passed": true
+    },
+    {
+      "url": "https://www.paypal.com",
+      "expected": "SAFE",
+      "predicted": "SAFE",
+      "confidence": 0.3,
+      "risk_level": "SAFE",
+      "passed": true
+    },
+    {
+      "url": "https://www.paypal.com/signin",
+      "expected": "SAFE",
+      "predicted": "SAFE",
+      "confidence": 13.2,
+      "risk_level": "SAFE",
+      "passed": true
+    },
+    {
+      "url": "https://www.amazon.com/gp/css/order-history",
+      "expected": "SAFE",
+      "predicted": "SAFE",
+      "confidence": 22.1,
+      "risk_level": "LOW",
+      "passed": true
+    },
+    {
+      "url": "http://paypa1-secure-login.tk/account/verify",
+      "expected": "PHISHING",
+      "predicted": "PHISHING",
+      "confidence": 93.2,
+      "risk_level": "CRITICAL",
+      "passed": true
+    },
+    {
+      "url": "https://paypal-login.example.com/account",
+      "expected": "PHISHING",
+      "predicted": "PHISHING",
+      "confidence": 90.3,
+      "risk_level": "CRITICAL",
+      "passed": true
+    }
+  ],
+  "engine_scenarios": [
+    {
+      "scenario": "Benign SMS + Benign URL",
+      "sms_conf": 1.5,
+      "sms_label": "SAFE",
+      "url_conf": 0.3,
+      "url_label": "SAFE",
+      "combined_score": 0.9,
+      "risk_level": "SAFE",
+      "threat_detected": false
+    },
+    {
+      "scenario": "Phishing SMS with Suspicious URL",
+      "sms_conf": 48.0,
+      "sms_label": "SAFE",
+      "url_conf": 78.1,
+      "url_label": "PHISHING",
+      "combined_score": 66.4,
+      "risk_level": "HIGH",
+      "threat_detected": true
+    },
+    {
+      "scenario": "Mixed Signal (Benign Text + Malicious Link)",
+      "sms_conf": 0.0,
+      "sms_label": "SAFE",
+      "url_conf": 93.2,
+      "url_label": "PHISHING",
+      "combined_score": 79.2,
+      "risk_level": "HIGH",
+      "threat_detected": true
+    },
+    {
+      "scenario": "Mixed Signal (Urgent Scammer Text + Legitimate Domain Link)",
+      "sms_conf": 73.5,
+      "sms_label": "SCAM",
+      "url_conf": 0.3,
+      "url_label": "SAFE",
+      "combined_score": 62.5,
+      "risk_level": "MEDIUM",
+      "threat_detected": true
+    }
+  ]
+}

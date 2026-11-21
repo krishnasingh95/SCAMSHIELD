@@ -1,0 +1,117 @@
+{
+  "run_timestamp_utc": "2026-11-05T06:01:36.319907+00:00",
+  "purpose": "Collect documentation sitemap URL candidates for later verification.",
+  "network_scope": "robots.txt and sitemap XML only; listed pages are not fetched.",
+  "label_policy": "No SAFE or PHISHING labels assigned; all rows are candidate_unverified.",
+  "sources": [
+    {
+      "source_name": "Python Documentation",
+      "host": "docs.python.org",
+      "robots_url": "https://docs.python.org/robots.txt",
+      "status": "completed",
+      "robots_status": "fetched",
+      "declared_sitemaps": [
+        "https://docs.python.org/sitemap.xml"
+      ],
+      "sitemap_files_visited": 1,
+      "sitemap_log": [
+        {
+          "sitemap_url": "https://docs.python.org/sitemap.xml",
+          "status": "urlset_ok",
+          "entries_seen": 7,
+          "accepted_after_host_and_robots_checks": 7
+        }
+      ],
+      "candidate_count_before_global_dedup": 7
+    },
+    {
+      "source_name": "MDN Web Docs",
+      "host": "developer.mozilla.org",
+      "robots_url": "https://developer.mozilla.org/robots.txt",
+      "status": "completed",
+      "robots_status": "fetched",
+      "declared_sitemaps": [
+        "https://developer.mozilla.org/sitemap.xml"
+      ],
+      "sitemap_files_visited": 11,
+      "sitemap_log": [
+        {
+          "sitemap_url": "https://developer.mozilla.org/sitemap.xml",
+          "status": "index_ok",
+          "entries": 10
+        },
+        {
+          "sitemap_url": "https://developer.mozilla.org/sitemaps/en-us/sitemap.xml.gz",
+          "status": "urlset_ok",
+          "entries_seen": 14872,
+          "accepted_after_host_and_robots_checks": 3000
+        },
+        {
+          "sitemap_url": "https://developer.mozilla.org/sitemaps/es/sitemap.xml.gz",
+          "status": "urlset_ok",
+          "entries_seen": 2689,
+          "accepted_after_host_and_robots_checks": 1
+        },
+        {
+          "sitemap_url": "https://developer.mozilla.org/sitemaps/fr/sitemap.xml.gz",
+          "status": "urlset_ok",
+          "entries_seen": 7891,
+          "accepted_after_host_and_robots_checks": 1
+        },
+        {
+          "sitemap_url": "https://developer.mozilla.org/sitemaps/ja/sitemap.xml.gz",
+          "status": "urlset_ok",
+          "entries_seen": 10341,
+          "accepted_after_host_and_robots_checks": 1
+        },
+        {
+          "sitemap_url": "https://developer.mozilla.org/sitemaps/ko/sitemap.xml.gz",
+          "status": "urlset_ok",
+          "entries_seen": 3371,
+          "accepted_after_host_and_robots_checks": 1
+        },
+        {
+          "sitemap_url": "https://developer.mozilla.org/sitemaps/pt-br/sitemap.xml.gz",
+          "status": "urlset_ok",
+          "entries_seen": 2041,
+          "accepted_after_host_and_robots_checks": 1
+        },
+        {
+          "sitemap_url": "https://developer.mozilla.org/sitemaps/ru/sitemap.xml.gz",
+          "status": "urlset_ok",
+          "entries_seen": 2813,
+          "accepted_after_host_and_robots_checks": 1
+        },
+        {
+          "sitemap_url": "https://developer.mozilla.org/sitemaps/zh-cn/sitemap.xml.gz",
+          "status": "urlset_ok",
+          "entries_seen": 7652,
+          "accepted_after_host_and_robots_checks": 1
+        },
+        {
+          "sitemap_url": "https://developer.mozilla.org/sitemaps/zh-tw/sitemap.xml.gz",
+          "status": "urlset_ok",
+          "entries_seen": 1037,
+          "accepted_after_host_and_robots_checks": 1
+        },
+        {
+          "sitemap_url": "https://developer.mozilla.org/sitemaps/de/sitemap.xml.gz",
+          "status": "urlset_ok",
+          "entries_seen": 14761,
+          "accepted_after_host_and_robots_checks": 1
+        }
+      ],
+      "candidate_count_before_global_dedup": 3009
+    }
+  ],
+  "candidate_rows_before_dedup": 3016,
+  "duplicate_candidates_removed": 1,
+  "unique_unverified_candidates_written": 3015,
+  "output_csv": "C:\\Users\\x1605\\AI_Projects\\ScamShield\\Training\\datasets\\V2\\raw\\url_v2_safe_candidates_unverified_20261105T060136Z.csv",
+  "limits": {
+    "max_sitemaps_per_source": 12,
+    "max_urls_per_source": 3000,
+    "timeout_seconds": 25,
+    "delay_seconds_between_sitemap_requests": 1.0
+  }
+}

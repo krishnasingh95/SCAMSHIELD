@@ -1,0 +1,261 @@
+{
+  "audit_name": "ScamShield V1 URL Dataset Read-only Quality Audit for V2 Planning",
+  "dataset_path": "C:\\Users\\x1605\\AI_Projects\\ScamShield\\Training\\datasets\\processed\\url_features_14.csv",
+  "schema_path": "C:\\Users\\x1605\\AI_Projects\\ScamShield\\Training\\datasets\\v2\\proposed_v2_schema.json",
+  "manifest_path": "C:\\Users\\x1605\\AI_Projects\\ScamShield\\Training\\datasets\\v2\\test_cases_manifest.json",
+  "dataset_shape": {
+    "rows": 235370,
+    "columns": 16
+  },
+  "dataset_columns": [
+    "URL",
+    "target",
+    "url_length",
+    "domain_length",
+    "path_length",
+    "query_length",
+    "num_subdomains",
+    "has_ip_address",
+    "has_https",
+    "has_suspicious_tld",
+    "num_special_chars",
+    "num_digits_in_domain",
+    "has_brand_keyword",
+    "brand_in_subdomain",
+    "has_redirect",
+    "path_depth"
+  ],
+  "schema": {
+    "version": "2.0.0",
+    "model_type": "RandomForestClassifier",
+    "declared_num_features": 14,
+    "actual_schema_feature_count": 14,
+    "schema_feature_order": [
+      "url_length",
+      "domain_length",
+      "path_length",
+      "query_length",
+      "num_subdomains",
+      "has_ip_address",
+      "has_https",
+      "has_suspicious_tld",
+      "num_special_chars",
+      "num_digits_in_domain",
+      "has_brand_keyword",
+      "brand_in_subdomain",
+      "has_redirect",
+      "path_depth"
+    ],
+    "dataset_feature_count_excluding_URL_target": 14,
+    "dataset_feature_order": [
+      "url_length",
+      "domain_length",
+      "path_length",
+      "query_length",
+      "num_subdomains",
+      "has_ip_address",
+      "has_https",
+      "has_suspicious_tld",
+      "num_special_chars",
+      "num_digits_in_domain",
+      "has_brand_keyword",
+      "brand_in_subdomain",
+      "has_redirect",
+      "path_depth"
+    ],
+    "feature_names_match_in_order": true,
+    "label_mapping": {
+      "SAFE": 0,
+      "PHISHING": 1
+    }
+  },
+  "data_integrity": {
+    "exact_duplicate_url_rows": 0,
+    "normalized_duplicate_url_rows": 220,
+    "missing_url_values": 0,
+    "blank_url_values": 0,
+    "missing_target_values": 0,
+    "invalid_target_values": [],
+    "rows_with_unparseable_or_missing_hostname": 0,
+    "hostnames_appearing_in_both_classes": 54,
+    "cross_label_hostname_examples": [
+      "www.1x.com",
+      "www.adgf.am",
+      "www.airlinemeals.net",
+      "www.alphauniforms.ae",
+      "www.amna.gr",
+      "www.bestdoctors.com",
+      "www.cbass.com",
+      "www.che-fare.com",
+      "www.chippc.com",
+      "www.coinmama.com",
+      "www.cutt.ly",
+      "www.dailynk.com",
+      "www.drivehq.com",
+      "www.dynu.com",
+      "www.ecrater.com",
+      "www.education.gouv.fr",
+      "www.electrum.org",
+      "www.experiencenano.com",
+      "www.getmonero.org",
+      "www.guysboroughjournal.com",
+      "www.ikarussecurity.com",
+      "www.im-creator.com",
+      "www.imcreator.com",
+      "www.indire.it",
+      "www.indushealthplus.com"
+    ]
+  },
+  "target_counts": {
+    "SAFE": 134850,
+    "PHISHING": 100520
+  },
+  "classwise_url_structure": {
+    "SAFE": {
+      "records": 134850,
+      "urls_with_path": 0,
+      "urls_without_path": 134850,
+      "urls_with_query": 0,
+      "urls_without_query": 134850,
+      "mean_path_length": 0.0,
+      "mean_query_length": 0.0
+    },
+    "PHISHING": {
+      "records": 100520,
+      "urls_with_path": 60006,
+      "urls_without_path": 40514,
+      "urls_with_query": 6071,
+      "urls_without_query": 94449,
+      "mean_path_length": 8.7132,
+      "mean_query_length": 5.1892
+    }
+  },
+  "tld_counts_by_class": {
+    "SAFE": {
+      "com": 68785,
+      "org": 16524,
+      "uk": 6073,
+      "net": 3998,
+      "de": 3310,
+      "au": 2606,
+      "jp": 2082,
+      "edu": 1856,
+      "it": 1669,
+      "nl": 1536,
+      "ca": 1502,
+      "fr": 1366,
+      "gov": 1276,
+      "br": 1193,
+      "ru": 892,
+      "in": 842,
+      "eu": 695,
+      "us": 678,
+      "info": 673,
+      "be": 622
+    },
+    "PHISHING": {
+      "com": 43608,
+      "app": 6327,
+      "co": 4950,
+      "io": 3742,
+      "net": 3078,
+      "ru": 2978,
+      "top": 2325,
+      "dev": 2289,
+      "org": 2268,
+      "site": 1465,
+      "xyz": 1444,
+      "link": 1425,
+      "cf": 1203,
+      "ga": 1107,
+      "ml": 993,
+      "info": 892,
+      "me": 845,
+      "pl": 792,
+      "cn": 689,
+      "de": 684
+    }
+  },
+  "suspicious_tld_counts_by_class": {
+    "SAFE": 41,
+    "PHISHING": 7931
+  },
+  "examples": {
+    "safe_urls_with_paths": [],
+    "phishing_urls_without_paths": [
+      "http://www.teramill.com",
+      "http://www.f0519141.xsph.ru",
+      "http://www.shprakserf.gq",
+      "http://www.kuradox92.lima-city.de",
+      "http://www.ooguy.com",
+      "http://www.fairytalesinc.com",
+      "http://www.iuhjn.pplink.club",
+      "http://www.komaru.today",
+      "http://www.nextraload.com",
+      "http://www.hesselawchambers.com"
+    ]
+  },
+  "benchmark_manifest": {
+    "name": "ScamShield V2 Canonical URL Test Suite",
+    "isolation_policy": "Strictly held out from all training, validation, and feature scaling sets",
+    "case_count": 7,
+    "all_label_mappings_consistent": true,
+    "cases": [
+      {
+        "url": "https://www.google.com",
+        "expected_label": "SAFE",
+        "expected_target": 0,
+        "category": "official_brand_homepage",
+        "label_mapping_consistent": true
+      },
+      {
+        "url": "https://www.google.com/search?q=python",
+        "expected_label": "SAFE",
+        "expected_target": 0,
+        "category": "official_brand_search_subpage",
+        "label_mapping_consistent": true
+      },
+      {
+        "url": "https://www.paypal.com",
+        "expected_label": "SAFE",
+        "expected_target": 0,
+        "category": "official_brand_homepage",
+        "label_mapping_consistent": true
+      },
+      {
+        "url": "https://www.paypal.com/signin",
+        "expected_label": "SAFE",
+        "expected_target": 0,
+        "category": "official_brand_auth_subpage",
+        "label_mapping_consistent": true
+      },
+      {
+        "url": "https://www.amazon.com/gp/css/order-history",
+        "expected_label": "SAFE",
+        "expected_target": 0,
+        "category": "official_brand_deep_subpage",
+        "label_mapping_consistent": true
+      },
+      {
+        "url": "http://paypa1-secure-login.tk/account/verify",
+        "expected_label": "PHISHING",
+        "expected_target": 1,
+        "category": "typosquatting_and_suspicious_tld",
+        "label_mapping_consistent": true
+      },
+      {
+        "url": "https://paypal-login.example.com/account",
+        "expected_label": "PHISHING",
+        "expected_target": 1,
+        "category": "brand_spoofing_in_subdomain",
+        "label_mapping_consistent": true
+      }
+    ],
+    "note": "The 7 canonical cases are regression/smoke tests, not a statistically sufficient final evaluation set. Synthetic fixtures must remain separate from training data."
+  },
+  "interpretation_notes": [
+    "Hostname overlap is reported at exact-hostname level, not registrable-domain level; robust registrable-domain grouping requires a maintained Public Suffix List.",
+    "Normalized duplicate detection is conservative: it lowercases scheme/hostname, removes fragments and default ports, but preserves path and query.",
+    "This script does not train a model or modify source data."
+  ]
+}

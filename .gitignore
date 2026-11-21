@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints*/
+
+# Large Models & Weights (exceeds GitHub 100MB limit)
+*.pkl
+
+# Large Dataset Files
+*.csv
+*.xlsx
+*.parquet
+
+# Screen recordings & temp captures
+Application/assets/screen*.png

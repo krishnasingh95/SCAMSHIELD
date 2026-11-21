@@ -1,0 +1,14 @@
+{
+  "URL_Phish_V2_unique_urls": 115231,
+  "LegitPhish_V2_unique_urls": 100873,
+  "CompPhish_V4_unique_urls": 15351,
+  "overlap_phish_legit": 176,
+  "overlap_phish_comp": 233,
+  "overlap_legit_comp": 31,
+  "overlap_all_three": 3,
+  "total_unique_across_all": 231018,
+  "V1_PhiUSIIL_unique_urls": 235370,
+  "overlap_V1_and_URL_Phish_V2": 595,
+  "overlap_V1_and_LegitPhish_V2": 36936,
+  "overlap_V1_and_CompPhish_V4": 42
+}

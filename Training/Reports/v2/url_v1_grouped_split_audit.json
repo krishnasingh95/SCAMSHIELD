@@ -1,0 +1,120 @@
+{
+  "audit_type": "registrable_domain_grouped_split",
+  "source_dataset": "C:\\Users\\x1605\\AI_Projects\\ScamShield\\Training\\datasets\\processed\\url_features_14.csv",
+  "feature_metadata": "C:\\Users\\x1605\\AI_Projects\\ScamShield\\Training\\Models\\url_feature_metadata.json",
+  "rows": 235370,
+  "features": [
+    "url_length",
+    "domain_length",
+    "path_length",
+    "query_length",
+    "num_subdomains",
+    "has_ip_address",
+    "has_https",
+    "has_suspicious_tld",
+    "num_special_chars",
+    "num_digits_in_domain",
+    "has_brand_keyword",
+    "brand_in_subdomain",
+    "has_redirect",
+    "path_depth"
+  ],
+  "unique_registrable_domains": 197709,
+  "splitter": "StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42)",
+  "selected_fold": 1,
+  "test_fraction": 0.2,
+  "train_rows": 188296,
+  "test_rows": 47074,
+  "train_domain_groups": 158173,
+  "test_domain_groups": 39536,
+  "shared_registrable_domains": 0,
+  "train_class_counts": {
+    "0": 107880,
+    "1": 80416
+  },
+  "test_class_counts": {
+    "0": 26970,
+    "1": 20104
+  },
+  "row_random_test_baseline": {
+    "accuracy": 0.99558142,
+    "precision_phishing": 0.99824702,
+    "recall_phishing": 0.99139475,
+    "f1_phishing": 0.99480908
+  },
+  "domain_grouped_test_metrics": {
+    "accuracy": 0.9956663975867782,
+    "precision_phishing": 0.997997997997998,
+    "recall_phishing": 0.9918424194190211,
+    "f1_phishing": 0.9949106875561321,
+    "confusion_matrix_actual_rows_predicted_columns": [
+      [
+        26930,
+        40
+      ],
+      [
+        164,
+        19940
+      ]
+    ]
+  },
+  "temporary_grouped_model_feature_importance": [
+    {
+      "feature": "has_https",
+      "importance_percent": 45.06882667813733
+    },
+    {
+      "feature": "path_depth",
+      "importance_percent": 18.497790501214542
+    },
+    {
+      "feature": "path_length",
+      "importance_percent": 17.433164159238306
+    },
+    {
+      "feature": "url_length",
+      "importance_percent": 6.558593619250347
+    },
+    {
+      "feature": "num_digits_in_domain",
+      "importance_percent": 4.962231467120394
+    },
+    {
+      "feature": "domain_length",
+      "importance_percent": 2.191420152326444
+    },
+    {
+      "feature": "num_subdomains",
+      "importance_percent": 1.964498731523845
+    },
+    {
+      "feature": "has_suspicious_tld",
+      "importance_percent": 1.8309401974943313
+    },
+    {
+      "feature": "num_special_chars",
+      "importance_percent": 1.304938080542145
+    },
+    {
+      "feature": "has_brand_keyword",
+      "importance_percent": 0.09560504667431709
+    },
+    {
+      "feature": "query_length",
+      "importance_percent": 0.08180588299170673
+    },
+    {
+      "feature": "brand_in_subdomain",
+      "importance_percent": 0.007971491628443194
+    },
+    {
+      "feature": "has_redirect",
+      "importance_percent": 0.0019898191609984514
+    },
+    {
+      "feature": "has_ip_address",
+      "importance_percent": 0.0002241726968684662
+    }
+  ],
+  "interpretation_note": "A domain-grouped split tests generalization to registrable domains held out from training. This temporary audit model is not saved and does not replace the V1 model. Differences versus row-random results are evidence about split sensitivity, not by themselves proof of overfitting or data leakage."
+}

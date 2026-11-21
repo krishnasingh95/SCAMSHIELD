@@ -1,0 +1,257 @@
+=== AUDIT DRILL-DOWN (READ ONLY) ===
+missing_url_values: 0
+blank_url_values: 0
+missing_target_values: 0
+invalid_target_values: []
+rows_with_unparseable_or_missing_hostname: 0
+hostnames_appearing_in_both_classes: 54
+
+=== NORMALIZED DUPLICATE DETAILS ===
+Duplicate groups: 199
+Rows involved: 419
+Groups with conflicting labels: 0
+
+Group 1 | labels=['PHISHING'] | rows=2
+Normalized: https://s3.amazonaws.com/appforest_uf/f1678949673383x832048620362898600/index%20%284%29.html
+  [PHISHING] https://s3.amazonaws.com/appforest_uf/f1678949673383x832048620362898600/index%20%284%29.html
+  [PHISHING] https://s3.amazonaws.com/appforest_uf/f1678949673383x832048620362898600/index%20%284%29.html#3mail@b.c
+
+Group 2 | labels=['PHISHING'] | rows=3
+Normalized: https://ipfs.io/ipfs/bafybeidmmks6ka5vki6djnohox7mminfrzcjkw2mowpft7xtu2sjyxzi64/ufx!xch@
+  [PHISHING] https://ipfs.io/ipfs/bafybeidmmks6ka5vki6djnohox7mminfrzcjkw2mowpft7xtu2sjyxzi64/ufx!xch@
+  [PHISHING] https://ipfs.io/ipfs/bafybeidmmks6ka5vki6djnohox7mminfrzcjkw2mowpft7xtu2sjyxzi64/ufx!xch@#user%40fbi.gov
+  [PHISHING] https://ipfs.io/ipfs/bafybeidmmks6ka5vki6djnohox7mminfrzcjkw2mowpft7xtu2sjyxzi64/ufx!xch@#user@fbi.gov
+
+Group 3 | labels=['PHISHING'] | rows=2
+Normalized: https://s3.ap-southeast-1.wasabisys.com/mailbusiness/appsuite/tlyappioox/mailfolderdefault9/inbox.html
+  [PHISHING] https://s3.ap-southeast-1.wasabisys.com/mailbusiness/appsuite/tlyappioox/mailfolderdefault9/inbox.html#redacted@abuse.ionos.com
+  [PHISHING] https://s3.ap-southeast-1.wasabisys.com/mailbusiness/appsuite/tlyappioox/mailfolderdefault9/inbox.html
+
+Group 4 | labels=['PHISHING'] | rows=2
+Normalized: https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat11/index.html
+  [PHISHING] https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat11/index.html#a@b.com
+  [PHISHING] https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat11/index.html
+
+Group 5 | labels=['PHISHING'] | rows=3
+Normalized: https://mattiazambetti.com/ionoscom/
+  [PHISHING] https://mattiazambetti.com/ionoscom/
+  [PHISHING] https://mattiazambetti.com/ionoscom/#gdriscoll@jacobsdriscoll.com
+  [PHISHING] https://mattiazambetti.com/ionoscom/#redacted@abuse.ionos.com
+
+Group 6 | labels=['PHISHING'] | rows=2
+Normalized: https://storageapi.fleek.co/f93bbabc-c9fe-416b-9895-abc3c414d6f4-bucket/tec11/index.html
+  [PHISHING] https://storageapi.fleek.co/f93bbabc-c9fe-416b-9895-abc3c414d6f4-bucket/tec11/index.html#a@b.com
+  [PHISHING] https://storageapi.fleek.co/f93bbabc-c9fe-416b-9895-abc3c414d6f4-bucket/tec11/index.html
+
+Group 7 | labels=['PHISHING'] | rows=2
+Normalized: https://storageapi.fleek.co/f93bbabc-c9fe-416b-9895-abc3c414d6f4-bucket/tec10/index.html
+  [PHISHING] https://storageapi.fleek.co/f93bbabc-c9fe-416b-9895-abc3c414d6f4-bucket/tec10/index.html
+  [PHISHING] https://storageapi.fleek.co/f93bbabc-c9fe-416b-9895-abc3c414d6f4-bucket/tec10/index.html#a@b.com
+
+Group 8 | labels=['PHISHING'] | rows=2
+Normalized: https://fb-business-appeal-269ce.web.app/
+  [PHISHING] https://fb-business-appeal-269ce.web.app/#/
+  [PHISHING] https://fb-business-appeal-269ce.web.app/
+
+Group 9 | labels=['PHISHING'] | rows=2
+Normalized: https://ipfs.io/ipfs/bafkreialfcxk6b7p4j2ggkao5w7acelqfzyb47japosqql6wxlqw3bvxz4/
+  [PHISHING] https://ipfs.io/ipfs/bafkreialfcxk6b7p4j2ggkao5w7acelqfzyb47japosqql6wxlqw3bvxz4/
+  [PHISHING] https://ipfs.io/ipfs/bafkreialfcxk6b7p4j2ggkao5w7acelqfzyb47japosqql6wxlqw3bvxz4/#a@b.com
+
+Group 10 | labels=['PHISHING'] | rows=2
+Normalized: https://s3.ap-southeast-1.wasabisys.com/policies/appsuite/tlyappioox/mailfolderdefault0/inbox.html
+  [PHISHING] https://s3.ap-southeast-1.wasabisys.com/policies/appsuite/tlyappioox/mailfolderdefault0/inbox.html#redacted@abuse.ionos.com
+  [PHISHING] https://s3.ap-southeast-1.wasabisys.com/policies/appsuite/tlyappioox/mailfolderdefault0/inbox.html
+
+Group 11 | labels=['PHISHING'] | rows=2
+Normalized: https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat15/index.html
+  [PHISHING] https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat15/index.html
+  [PHISHING] https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat15/index.html#a@b.com
+
+Group 12 | labels=['PHISHING'] | rows=3
+Normalized: https://sprintcourierltd.com//admin-info/
+  [PHISHING] https://sprintcourierltd.com//admin-info/
+  [PHISHING] https://sprintcourierltd.com//admin-info/#[email%c2%a0protected]
+  [PHISHING] https://sprintcourierltd.com//admin-info/#redacted@abuse.ionos.com
+
+Group 13 | labels=['PHISHING'] | rows=2
+Normalized: https://latestvacancy.net/ionoscom/
+  [PHISHING] https://latestvacancy.net/ionoscom/#[email%c2%a0protected]
+  [PHISHING] https://latestvacancy.net/ionoscom/#redacted@abuse.ionos.com
+
+Group 14 | labels=['PHISHING'] | rows=2
+Normalized: https://ipfs.io/ipfs/bafkreiamcqroqsd5ebduskekvhewvv7rjbqow2ncnqwerhc3uyqwhgwp4y/
+  [PHISHING] https://ipfs.io/ipfs/bafkreiamcqroqsd5ebduskekvhewvv7rjbqow2ncnqwerhc3uyqwhgwp4y/#g.gourjon@nameshield.net
+  [PHISHING] https://ipfs.io/ipfs/bafkreiamcqroqsd5ebduskekvhewvv7rjbqow2ncnqwerhc3uyqwhgwp4y/
+
+Group 15 | labels=['PHISHING'] | rows=2
+Normalized: https://ep-2hv.pages.dev/
+  [PHISHING] https://ep-2hv.pages.dev/
+  [PHISHING] https://ep-2hv.pages.dev/#brezinova@mup.cz
+
+Group 16 | labels=['PHISHING'] | rows=2
+Normalized: https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat7/index.html
+  [PHISHING] https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat7/index.html
+  [PHISHING] https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat7/index.html#a@b.com
+
+Group 17 | labels=['PHISHING'] | rows=2
+Normalized: https://ipfs.io/ipfs/bafybeig47ec33vkm2s6ghpkd23tjn7ifgjjolj2obqx6xye74mkd76aul4/loijkanotherfinyokeretanbangakoshimmeliwebjkkjjhhumaikkijjjkkl.html
+  [PHISHING] https://ipfs.io/ipfs/bafybeig47ec33vkm2s6ghpkd23tjn7ifgjjolj2obqx6xye74mkd76aul4/loijkanotherfinyokeretanbangakoshimmeliwebjkkjjhhumaikkijjjkkl.html#x@x.com
+  [PHISHING] https://ipfs.io/ipfs/bafybeig47ec33vkm2s6ghpkd23tjn7ifgjjolj2obqx6xye74mkd76aul4/loijkanotherfinyokeretanbangakoshimmeliwebjkkjjhhumaikkijjjkkl.html
+
+Group 18 | labels=['PHISHING'] | rows=2
+Normalized: https://ecommerce.tomlinson.mx/vendor/yiisoft/yii2-debug/src/actions/email/index.html
+  [PHISHING] https://ecommerce.tomlinson.mx/vendor/yiisoft/yii2-debug/src/actions/email/index.html#abuse@optusnet.com.au
+  [PHISHING] https://ecommerce.tomlinson.mx/vendor/yiisoft/yii2-debug/src/actions/email/index.html
+
+Group 19 | labels=['PHISHING'] | rows=2
+Normalized: https://bafybeie2cw4x7ccgx44g7v6td2p4laryuaoh3tpv53hs75ilebhbigd7nm.ipfs.dweb.link/
+  [PHISHING] https://bafybeie2cw4x7ccgx44g7v6td2p4laryuaoh3tpv53hs75ilebhbigd7nm.ipfs.dweb.link/
+  [PHISHING] https://bafybeie2cw4x7ccgx44g7v6td2p4laryuaoh3tpv53hs75ilebhbigd7nm.ipfs.dweb.link/#noc@protocol.ai
+
+Group 20 | labels=['PHISHING'] | rows=2
+Normalized: https://storageapi.fleek.co/f93bbabc-c9fe-416b-9895-abc3c414d6f4-bucket/tec6/index.html
+  [PHISHING] https://storageapi.fleek.co/f93bbabc-c9fe-416b-9895-abc3c414d6f4-bucket/tec6/index.html#a@b.com
+  [PHISHING] https://storageapi.fleek.co/f93bbabc-c9fe-416b-9895-abc3c414d6f4-bucket/tec6/index.html
+
+Group 21 | labels=['PHISHING'] | rows=2
+Normalized: https://storage.cloud.google.com/lllumin/karaownautoindex.html
+  [PHISHING] https://storage.cloud.google.com/lllumin/karaownautoindex.html#info@example.net
+  [PHISHING] https://storage.cloud.google.com/lllumin/karaownautoindex.html
+
+Group 22 | labels=['PHISHING'] | rows=2
+Normalized: https://noble-malachite-country.glitch.me/hytn.html
+  [PHISHING] https://noble-malachite-country.glitch.me/hytn.html#hosting-security@ionos.co.uk
+  [PHISHING] https://noble-malachite-country.glitch.me/hytn.html#[email%c2%a0protected]
+
+Group 23 | labels=['PHISHING'] | rows=2
+Normalized: https://neuvomgmt.com/v1/index.html
+  [PHISHING] https://neuvomgmt.com/v1/index.html#redacted@abuse.ionos.com
+  [PHISHING] https://neuvomgmt.com/v1/index.html
+
+Group 24 | labels=['PHISHING'] | rows=3
+Normalized: https://www.sanjevani.com//wp-info/
+  [PHISHING] https://www.sanjevani.com//wp-info/#jose.pardo@parrillaweb.es
+  [PHISHING] https://www.sanjevani.com//wp-info/#redaacted@abuse.ionos.com
+  [PHISHING] https://www.sanjevani.com//wp-info/
+
+Group 25 | labels=['PHISHING'] | rows=2
+Normalized: https://www.moneyklt.flsaz.com/sonn/index.php
+  [PHISHING] https://www.moneyklt.flsaz.com/sonn/index.php
+  [PHISHING] https://www.moneyklt.flsaz.com/sonn/index.php#/login
+
+Group 26 | labels=['PHISHING'] | rows=2
+Normalized: https://ipfs.io/ipfs/qmurzvrmqzpxvzhcqmnnxgy5qzjkhuvpwfkwjzw84jyc1k?filename=index.html
+  [PHISHING] https://ipfs.io/ipfs/qmurzvrmqzpxvzhcqmnnxgy5qzjkhuvpwfkwjzw84jyc1k?filename=index.html#aaaa@example.jp
+  [PHISHING] https://ipfs.io/ipfs/qmurzvrmqzpxvzhcqmnnxgy5qzjkhuvpwfkwjzw84jyc1k?filename=index.html#abuse@optusnet.com.au
+
+Group 27 | labels=['PHISHING'] | rows=2
+Normalized: https://patient-cell-40f5.updatedlogmylogin.workers.dev/
+  [PHISHING] https://patient-cell-40f5.updatedlogmylogin.workers.dev/#user@calstatela.edu
+  [PHISHING] https://patient-cell-40f5.updatedlogmylogin.workers.dev/
+
+Group 28 | labels=['PHISHING'] | rows=2
+Normalized: https://ipfs-stg.fleek.co/ipfs/qmsec2jttycom6ofvg4gbt1he6xgremcrn2caeqi3u62pa
+  [PHISHING] https://ipfs-stg.fleek.co/ipfs/qmsec2jttycom6ofvg4gbt1he6xgremcrn2caeqi3u62pa
+  [PHISHING] https://ipfs-stg.fleek.co/ipfs/qmsec2jttycom6ofvg4gbt1he6xgremcrn2caeqi3u62pa?
+
+Group 29 | labels=['PHISHING'] | rows=2
+Normalized: https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat10/index.html
+  [PHISHING] https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat10/index.html#a@b.com
+  [PHISHING] https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat10/index.html
+
+Group 30 | labels=['PHISHING'] | rows=2
+Normalized: https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat8/index.html
+  [PHISHING] https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat8/index.html#a@b.com
+  [PHISHING] https://storageapi.fleek.co/b620e7da-f4f5-4e6e-8d8e-8c4c3783180b-bucket/vat8/index.html
+
+Group 31 | labels=['PHISHING'] | rows=2
+Normalized: https://ipfs.io/ipfs/qmqgpkdwsy2upsogwvn38nwvabyj39qdbrwssa7fewkgd9?filename=nes.okala.html
+  [PHISHING] https://ipfs.io/ipfs/qmqgpkdwsy2upsogwvn38nwvabyj39qdbrwssa7fewkgd9?filename=nes.okala.html#noc@protocol.ai
+  [PHISHING] https://ipfs.io/ipfs/qmqgpkdwsy2upsogwvn38nwvabyj39qdbrwssa7fewkgd9?filename=nes.okala.html
+
+Group 32 | labels=['PHISHING'] | rows=2
+Normalized: http://104.248.130.181/modules/prosseguir.php
+  [PHISHING] http://104.248.130.181/modules/prosseguir.php?
+  [PHISHING] http://104.248.130.181/modules/prosseguir.php
+
+Group 33 | labels=['PHISHING'] | rows=4
+Normalized: https://ipfs.io/ipfs/qmyvctxkrfxmbecfvfhadb8qjpldgf2jq54ptavxfeyxda?filename=rb1ons.html
+  [PHISHING] https://ipfs.io/ipfs/qmyvctxkrfxmbecfvfhadb8qjpldgf2jq54ptavxfeyxda?filename=rb1ons.html#redacted@abuse.ionos.com
+  [PHISHING] https://ipfs.io/ipfs/qmyvctxkrfxmbecfvfhadb8qjpldgf2jq54ptavxfeyxda?filename=rb1ons.html#info@metodomadrid.es
+  [PHISHING] https://ipfs.io/ipfs/qmyvctxkrfxmbecfvfhadb8qjpldgf2jq54ptavxfeyxda?filename=rb1ons.html
+  [PHISHING] https://ipfs.io/ipfs/qmyvctxkrfxmbecfvfhadb8qjpldgf2jq54ptavxfeyxda?filename=rb1ons.html#redacted@ionos.com
+
+Group 34 | labels=['PHISHING'] | rows=2
+Normalized: http://nimh.gov.vn/zxx/index.html
+  [PHISHING] http://nimh.gov.vn/zxx/index.html#user@example.org
+  [PHISHING] http://nimh.gov.vn/zxx/index.html#admin@example.com
+
+Group 35 | labels=['PHISHING'] | rows=2
+Normalized: https://s3.amazonaws.com/appforest_uf/f1676855561058x216250324521135800/index.html
+  [PHISHING] https://s3.amazonaws.com/appforest_uf/f1676855561058x216250324521135800/index.html#redacted@abuse.ionos.com
+  [PHISHING] https://s3.amazonaws.com/appforest_uf/f1676855561058x216250324521135800/index.html
+
+Group 36 | labels=['PHISHING'] | rows=3
+Normalized: https://storageapi.fleek.co/53205beb-e9f1-4cdc-88ad-5732e17b1dd0-bucket/emailserver8/index4.html
+  [PHISHING] https://storageapi.fleek.co/53205beb-e9f1-4cdc-88ad-5732e17b1dd0-bucket/emailserver8/index4.html#a@b.com
+  [PHISHING] https://storageapi.fleek.co/53205beb-e9f1-4cdc-88ad-5732e17b1dd0-bucket/emailserver8/index4.html#username@domainname.com
+  [PHISHING] https://storageapi.fleek.co/53205beb-e9f1-4cdc-88ad-5732e17b1dd0-bucket/emailserver8/index4.html
+
+Group 37 | labels=['PHISHING'] | rows=2
+Normalized: https://s3.amazonaws.com/appforest_uf/f1672759453899x336560066180168200/indexcp.html
+  [PHISHING] https://s3.amazonaws.com/appforest_uf/f1672759453899x336560066180168200/indexcp.html#reports@antiphishing.ch
+  [PHISHING] https://s3.amazonaws.com/appforest_uf/f1672759453899x336560066180168200/indexcp.html#user@example.org
+
+Group 38 | labels=['PHISHING'] | rows=2
+Normalized: https://crditagricolecairegionalca.web.app/
+  [PHISHING] https://crditagricolecairegionalca.web.app/
+  [PHISHING] https://crditagricolecairegionalca.web.app/#/
+
+Group 39 | labels=['PHISHING'] | rows=2
+Normalized: https://ipfs.io/ipfs/qmdjpmk3xgvacfmefjk1enfxbp8g4t2uiifpamdyaetgmq
+  [PHISHING] https://ipfs.io/ipfs/qmdjpmk3xgvacfmefjk1enfxbp8g4t2uiifpamdyaetgmq
+  [PHISHING] https://ipfs.io/ipfs/qmdjpmk3xgvacfmefjk1enfxbp8g4t2uiifpamdyaetgmq#noc@protocol.ai
+
+Group 40 | labels=['PHISHING'] | rows=2
+Normalized: https://ectt.pages.dev/
+  [PHISHING] https://ectt.pages.dev/#fedlreservesystem@gmail.com
+  [PHISHING] https://ectt.pages.dev/
+
+Only first 40 of 199 groups displayed.
+
+=== HOSTNAMES PRESENT IN BOTH CLASSES (FIRST 25) ===
+Count: 54
+www.1x.com: ['SAFE', 'PHISHING']
+www.adgf.am: ['SAFE', 'PHISHING']
+www.airlinemeals.net: ['SAFE', 'PHISHING']
+www.alphauniforms.ae: ['SAFE', 'PHISHING']
+www.amna.gr: ['SAFE', 'PHISHING']
+www.bestdoctors.com: ['SAFE', 'PHISHING']
+www.cbass.com: ['SAFE', 'PHISHING']
+www.che-fare.com: ['SAFE', 'PHISHING']
+www.chippc.com: ['SAFE', 'PHISHING']
+www.coinmama.com: ['SAFE', 'PHISHING']
+www.cutt.ly: ['SAFE', 'PHISHING']
+www.dailynk.com: ['SAFE', 'PHISHING']
+www.drivehq.com: ['SAFE', 'PHISHING']
+www.dynu.com: ['SAFE', 'PHISHING']
+www.ecrater.com: ['SAFE', 'PHISHING']
+www.education.gouv.fr: ['SAFE', 'PHISHING']
+www.electrum.org: ['SAFE', 'PHISHING']
+www.experiencenano.com: ['SAFE', 'PHISHING']
+www.getmonero.org: ['SAFE', 'PHISHING']
+www.guysboroughjournal.com: ['SAFE', 'PHISHING']
+www.ikarussecurity.com: ['SAFE', 'PHISHING']
+www.im-creator.com: ['SAFE', 'PHISHING']
+www.imcreator.com: ['SAFE', 'PHISHING']
+www.indire.it: ['SAFE', 'PHISHING']
+www.indushealthplus.com: ['SAFE', 'PHISHING']
+
+=== SAFE URL PATH EXAMPLES ===
+None found in the processed dataset.
+
+=== PHISHING URLS WITHOUT PATH EXAMPLES ===
+['http://www.teramill.com', 'http://www.f0519141.xsph.ru', 'http://www.shprakserf.gq', 'http://www.kuradox92.lima-city.de', 'http://www.ooguy.com', 'http://www.fairytalesinc.com', 'http://www.iuhjn.pplink.club', 'http://www.komaru.today', 'http://www.nextraload.com', 'http://www.hesselawchambers.com']
+
+No files were modified.

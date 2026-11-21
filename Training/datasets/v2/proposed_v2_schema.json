@@ -1,0 +1,90 @@
+{
+  "schema_version": "2.0.0",
+  "model_type": "RandomForestClassifier",
+  "num_features": 14,
+  "label_mapping": {
+    "SAFE": 0,
+    "PHISHING": 1
+  },
+  "features": [
+    {
+      "name": "url_length",
+      "type": "int",
+      "description": "Total length of the complete URL string"
+    },
+    {
+      "name": "domain_length",
+      "type": "int",
+      "description": "Length of the extracted hostname excluding port and userinfo"
+    },
+    {
+      "name": "path_length",
+      "type": "int",
+      "description": "Length of the URL path component"
+    },
+    {
+      "name": "query_length",
+      "type": "int",
+      "description": "Length of the query string following '?'"
+    },
+    {
+      "name": "num_subdomains",
+      "type": "int",
+      "description": "Number of dot separators in the parsed hostname"
+    },
+    {
+      "name": "has_ip_address",
+      "type": "int",
+      "description": "Binary flag (1 if hostname is a valid IPv4 or IPv6 address, 0 otherwise)"
+    },
+    {
+      "name": "has_https",
+      "type": "int",
+      "description": "Binary flag (1 if scheme is https, 0 otherwise)"
+    },
+    {
+      "name": "has_suspicious_tld",
+      "type": "int",
+      "description": "Binary flag (1 if TLD matches known abusive TLDs: tk, ml, ga, cf, gq, xyz, top, click, pw)"
+    },
+    {
+      "name": "num_special_chars",
+      "type": "int",
+      "description": "Count of characters in '-_@!%' across the URL"
+    },
+    {
+      "name": "num_digits_in_domain",
+      "type": "int",
+      "description": "Count of numeric digits in the parsed hostname"
+    },
+    {
+      "name": "has_brand_keyword",
+      "type": "int",
+      "description": "V2 Brand Spoofing Indicator: 1 if a configured brand keyword appears in hostname on an UNAUTHORIZED registrable domain; 0 if on official brand domain or no brand found"
+    },
+    {
+      "name": "brand_in_subdomain",
+      "type": "int",
+      "description": "V2 Subdomain Spoofing Indicator: 1 if brand keyword is placed in subdomain of an UNAUTHORIZED registrable domain; 0 if official domain or no brand in subdomain"
+    },
+    {
+      "name": "has_redirect",
+      "type": "int",
+      "description": "Binary flag (1 if 'redirect' or 'url=' appears in URL, 0 otherwise)"
+    },
+    {
+      "name": "path_depth",
+      "type": "int",
+      "description": "Number of forward slashes ('/') in the path component"
+    }
+  ],
+  "provenance_fields": [
+    "source_dataset",
+    "source_id",
+    "original_label",
+    "verified_label",
+    "registrable_domain",
+    "page_type",
+    "license"
+  ]
+}

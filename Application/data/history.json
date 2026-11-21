@@ -1,0 +1,52 @@
+[
+  {
+    "id": "9e64c507",
+    "timestamp": "2026-11-04T01:58:12",
+    "scan_type": "SMS",
+    "input_preview": "Congratulations! You have won a free prize.\nClick now to claim your reward!",
+    "risk_level": "HIGH",
+    "confidence": 0.745,
+    "label": "SCAM",
+    "status": "ok"
+  },
+  {
+    "id": "eb255cf4",
+    "timestamp": "2026-11-04T01:58:51",
+    "scan_type": "SMS",
+    "input_preview": "Hey, are we still meeting tomorrow for coffee at 4pm?",
+    "risk_level": "SAFE",
+    "confidence": 0.0,
+    "label": "SAFE",
+    "status": "ok"
+  },
+  {
+    "id": "1ca9fc60",
+    "timestamp": "2026-11-04T02:01:47",
+    "scan_type": "URL",
+    "input_preview": "https://www.google.com",
+    "risk_level": "SAFE",
+    "confidence": 0.0,
+    "label": "SAFE",
+    "status": "ok"
+  },
+  {
+    "id": "393e45e9",
+    "timestamp": "2026-11-04T02:02:48",
+    "scan_type": "URL",
+    "input_preview": "http://paypa1-secure-login.tk/account/verify",
+    "risk_level": "CRITICAL",
+    "confidence": 1.0,
+    "label": "PHISHING",
+    "status": "ok"
+  },
+  {
+    "id": "d2c61d42",
+    "timestamp": "2026-11-04T02:04:20",
+    "scan_type": "URL",
+    "input_preview": "https://www.paypal.com/signin",
+    "risk_level": "CRITICAL",
+    "confidence": 1.0,
+    "label": "PHISHING",
+    "status": "ok"
+  }
+]

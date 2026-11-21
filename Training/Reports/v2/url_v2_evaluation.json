@@ -1,0 +1,59 @@
+{
+    "project": "ScamShield",
+    "version": "2.1.0",
+    "trained_at_utc": "2026-11-13T04:44:52.489810+00:00",
+    "evaluation_metrics": {
+        "accuracy": 0.8525234780932898,
+        "precision": 0.8308457296368293,
+        "recall": 0.836126410531972,
+        "f1_score": 0.8334777059402004,
+        "roc_auc": 0.9384427251897389
+    },
+    "confusion_matrix": [
+        [
+            130447,
+            20275
+        ],
+        [
+            19518,
+            99586
+        ]
+    ],
+    "feature_importances": {
+        "path_length": 0.17725730417816735,
+        "domain_length": 0.13875777761760005,
+        "url_length": 0.127461288091323,
+        "num_digits_in_domain": 0.11010107021775459,
+        "num_special_chars": 0.08856395569442314,
+        "path_depth": 0.0883876479000509,
+        "has_https": 0.07412127840318261,
+        "query_length": 0.06321180616821893,
+        "num_subdomains": 0.056501261672754495,
+        "has_ip_address": 0.03572941187435726,
+        "has_suspicious_tld": 0.019842946328308925,
+        "has_brand_keyword": 0.01612674418470167,
+        "has_redirect": 0.0024242208938471976,
+        "brand_in_subdomain": 0.0015132867753100475
+    },
+    "total_training_records": 1349127,
+    "test_samples": 269826,
+    "model_sha256": "793646d8e47561ab56c112b1ce97e066718cd76f80df051b42c17571e2acc47a",
+    "datasets_used": [
+        "PhiUSIIL Phishing URL Dataset (V1)",
+        "URL-Phish Dataset V2 (Mendeley 10.17632/65z9twcx3r.2)",
+        "LegitPhish Dataset V2 (Mendeley 10.17632/hx4m73v2sf.2)",
+        "CompPhish Dataset V4 (Mendeley 10.17632/fmbs4kp9wz.4)",
+        "Phishing URL Dataset (Mendeley 10.17632/3jddhy2f6s.1)",
+        "Web Page Phishing Detection (Mendeley 10.17632/c2gw7fy2j4.3)",
+        "MURL Large-Scale Malicious URL Dataset (Mendeley 10.17632/5fk24y4xmg.2)"
+    ],
+    "source_distribution": {
+        "MURL_5fk24y4xmg": 783287,
+        "PhiUSIIL_V1": 235370,
+        "Phishing_URL_3jddhy2f6s": 125524,
+        "URL_Phish_V2": 114636,
+        "LegitPhish_V2": 63929,
+        "CompPhish_V4": 15058,
+        "WebPage_Phishing_c2gw7fy2j4": 11323
+    }
+}

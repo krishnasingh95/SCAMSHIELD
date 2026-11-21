@@ -1,0 +1,63 @@
+{
+  "benchmark_name": "ScamShield V2 Canonical URL Test Suite",
+  "isolation_policy": "Strictly held out from all training, validation, and feature scaling sets",
+  "created_at": "2026-11-05",
+  "test_cases": [
+    {
+      "url": "https://www.google.com",
+      "expected_label": "SAFE",
+      "expected_target": 0,
+      "category": "official_brand_homepage",
+      "target_brand": "google",
+      "description": "Standard root brand portal without path"
+    },
+    {
+      "url": "https://www.google.com/search?q=python",
+      "expected_label": "SAFE",
+      "expected_target": 0,
+      "category": "official_brand_search_subpage",
+      "target_brand": "google",
+      "description": "Legitimate search query with path and query parameters"
+    },
+    {
+      "url": "https://www.paypal.com",
+      "expected_label": "SAFE",
+      "expected_target": 0,
+      "category": "official_brand_homepage",
+      "target_brand": "paypal",
+      "description": "Official PayPal root homepage"
+    },
+    {
+      "url": "https://www.paypal.com/signin",
+      "expected_label": "SAFE",
+      "expected_target": 0,
+      "category": "official_brand_auth_subpage",
+      "target_brand": "paypal",
+      "description": "Official PayPal authentication portal with path (primary V1 false-positive case)"
+    },
+    {
+      "url": "https://www.amazon.com/gp/css/order-history",
+      "expected_label": "SAFE",
+      "expected_target": 0,
+      "category": "official_brand_deep_subpage",
+      "target_brand": "amazon",
+      "description": "Authenticated deep e-commerce order history subpage"
+    },
+    {
+      "url": "http://paypa1-secure-login.tk/account/verify",
+      "expected_label": "PHISHING",
+      "expected_target": 1,
+      "category": "typosquatting_and_suspicious_tld",
+      "target_brand": "paypal",
+      "description": "Deceptive homoglyph domain with suspicious TLD and credential harvesting subpath"
+    },
+    {
+      "url": "https://paypal-login.example.com/account",
+      "expected_label": "PHISHING",
+      "expected_target": 1,
+      "category": "brand_spoofing_in_subdomain",
+      "target_brand": "paypal",
+      "description": "Brand impersonation keyword placed on unauthorized third-party registrable domain"
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "audit_type": "domain_grouped_feature_ablation",
+  "source_dataset": "C:\\Users\\x1605\\AI_Projects\\ScamShield\\Training\\datasets\\processed\\url_features_14.csv",
+  "rows": 235370,
+  "selected_fold": 1,
+  "train_rows": 188296,
+  "test_rows": 47074,
+  "unique_registrable_domains": 197709,
+  "shared_registrable_domains": 0,
+  "splitter": "StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42)",
+  "model_configuration": {
+    "class": "RandomForestClassifier",
+    "n_estimators": 200,
+    "class_weight": "balanced",
+    "random_state": 42
+  },
+  "variants": {
+    "all_14_features": {
+      "features_used": [
+        "url_length",
+        "domain_length",
+        "path_length",
+        "query_length",
+        "num_subdomains",
+        "has_ip_address",
+        "has_https",
+        "has_suspicious_tld",
+        "num_special_chars",
+        "num_digits_in_domain",
+        "has_brand_keyword",
+        "brand_in_subdomain",
+        "has_redirect",
+        "path_depth"
+      ],
+      "feature_count": 14,
+      "accuracy": 0.9956663975867782,
+      "precision_phishing": 0.997997997997998,
+      "recall_phishing": 0.9918424194190211,
+      "f1_phishing": 0.9949106875561321,
+      "confusion_matrix_actual_rows_predicted_columns": [
+        [
+          26930,
+          40
+        ],
+        [
+          164,
+          19940
+        ]
+      ]
+    },
+    "without_has_https": {
+      "features_used": [
+        "url_length",
+        "domain_length",
+        "path_length",
+        "query_length",
+        "num_subdomains",
+        "has_ip_address",
+        "has_suspicious_tld",
+        "num_special_chars",
+        "num_digits_in_domain",
+        "has_brand_keyword",
+        "brand_in_subdomain",
+        "has_redirect",
+        "path_depth"
+      ],
+      "feature_count": 13,
+      "accuracy": 0.9951565620087521,
+      "precision_phishing": 0.996999399879976,
+      "recall_phishing": 0.9916434540389972,
+      "f1_phishing": 0.9943142144638404,
+      "confusion_matrix_actual_rows_predicted_columns": [
+        [
+          26910,
+          60
+        ],
+        [
+          168,
+          19936
+        ]
+      ]
+    },
+    "without_path_length_and_depth": {
+      "features_used": [
+        "url_length",
+        "domain_length",
+        "query_length",
+        "num_subdomains",
+        "has_ip_address",
+        "has_https",
+        "has_suspicious_tld",
+        "num_special_chars",
+        "num_digits_in_domain",
+        "has_brand_keyword",
+        "brand_in_subdomain",
+        "has_redirect"
+      ],
+      "feature_count": 12,
+      "accuracy": 0.9954964523941029,
+      "precision_phishing": 0.9973994798959792,
+      "recall_phishing": 0.9920413847990449,
+      "f1_phishing": 0.994713216957606,
+      "confusion_matrix_actual_rows_predicted_columns": [
+        [
+          26918,
+          52
+        ],
+        [
+          160,
+          19944
+        ]
+      ]
+    },
+    "without_top_3_shortcut_features": {
+      "features_used": [
+        "url_length",
+        "domain_length",
+        "query_length",
+        "num_subdomains",
+        "has_ip_address",
+        "has_suspicious_tld",
+        "num_special_chars",
+        "num_digits_in_domain",
+        "has_brand_keyword",
+        "brand_in_subdomain",
+        "has_redirect"
+      ],
+      "feature_count": 11,
+      "accuracy": 0.9861069804987891,
+      "precision_phishing": 0.9934544347473108,
+      "recall_phishing": 0.9738857938718662,
+      "f1_phishing": 0.983572792122978,
+      "confusion_matrix_actual_rows_predicted_columns": [
+        [
+          26841,
+          129
+        ],
+        [
+          525,
+          19579
+        ]
+      ]
+    },
+    "top_3_features_only": {
+      "features_used": [
+        "has_https",
+        "path_length",
+        "path_depth"
+      ],
+      "feature_count": 3,
+      "accuracy": 0.9905043123592642,
+      "precision_phishing": 1.0,
+      "recall_phishing": 0.9777656187823319,
+      "f1_phishing": 0.9887578280224341,
+      "confusion_matrix_actual_rows_predicted_columns": [
+        [
+          26970,
+          0
+        ],
+        [
+          447,
+          19657
+        ]
+      ]
+    }
+  },
+  "interpretation": "Feature ablation measures how this particular grouped holdout's metrics change when selected feature(s) are removed. It does not by itself establish causality or production performance. The models are temporary and are not saved."
+}
