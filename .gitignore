@@ -28,7 +28,6 @@ desktop.ini
 .ipynb_checkpoints*/
 
 # Large Models & Weights (exceeds GitHub 100MB limit)
-Application/models/url_rf_model.pkl
 Training/Models/url_rf_model.pkl
 *.pkl.bak
 
